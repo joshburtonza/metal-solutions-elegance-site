@@ -19,10 +19,10 @@ const ContactSection = () => {
                 <div>
                   <h3 className="text-lg font-medium mb-2">Contact Information</h3>
                   <div className="space-y-3 text-white/80">
-                    <p>123 Design District, Suite 500</p>
-                    <p>Los Angeles, CA 90210</p>
+                    <p>Robin Westhazen</p>
+                    <p>Germiston, Gauteng, Johannesburg, South Africa</p>
                     <p>Email: info@rtmetalsolutions.com</p>
-                    <p>Phone: +1 (555) 987-6543</p>
+                    <p>Phone: +27 76 514 6465</p>
                   </div>
                 </div>
 
@@ -75,7 +75,7 @@ const ContactSection = () => {
               <div className="h-full rounded-md overflow-hidden">
                 <iframe
                   title="RT Metal Solutions Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53100.40129421122!2d-118.41004966445815!3d34.076998208640715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2b931e8f7262d%3A0x91bcd1e74f4a5d88!2sBeverly%20Hills%2C%20CA!5e0!3m2!1sen!2sus!4v1715149078619!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114488.01788023044!2d28.058043057236456!3d-26.215413064030874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95124e6ad30e9d%3A0xd37b3752ab0a8645!2sGermiston%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1716449753911!5m2!1sen!2sus"
                   width="100%"
                   height="100%"
                   style={{ border: 0, minHeight: "300px" }}
