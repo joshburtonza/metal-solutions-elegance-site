@@ -22,7 +22,7 @@ const ContactSection = () => {
                     <p>Robin Westhazen</p>
                     <p>Germiston, Gauteng, Johannesburg, South Africa</p>
                     <p>Email: info@rtmetalsolutions.com</p>
-                    <p>Phone: +27 76 514 6465</p>
+                    <p>Phone: +377 65146465</p>
                   </div>
                 </div>
 

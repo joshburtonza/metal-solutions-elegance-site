@@ -4,16 +4,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const heroImages = [
   {
-    src: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2070",
-    alt: "Modern steel dining table",
+    src: "/lovable-uploads/072f1f50-0eb2-4aa0-a473-35d1b488497c.png",
+    alt: "Modern orange steel lounge chair with ottoman",
   },
   {
-    src: "https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=2070",
-    alt: "Minimalist steel chair design",
+    src: "/lovable-uploads/22dd1449-dcc3-41ed-8c5d-6e68c507b0e7.png",
+    alt: "Contemporary living space with steel furniture and orange accents",
   },
   {
-    src: "https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2080",
-    alt: "Contemporary steel décor element",
+    src: "/lovable-uploads/f21e2af8-0505-4c06-93da-90dd7821b7a8.png",
+    alt: "Modern steel framed lounge area with decorative plant features",
   }
 ];
 
