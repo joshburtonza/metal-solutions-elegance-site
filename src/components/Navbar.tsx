@@ -1,9 +1,13 @@
 
 import { useState, useEffect } from 'react';
 import { cn } from "@/lib/utils";
+import { CartIcon } from "@/components/cart/CartIcon";
+import { CartDrawer } from "@/components/cart/CartDrawer";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -55,9 +59,16 @@ const Navbar = () => {
           ))}
         </div>
         
-        <button className="px-5 py-2 border border-burntOrange text-burntOrange text-sm rounded-sm hover:bg-burntOrange hover:text-white transition-all duration-300">
-          Request Catalog
-        </button>
+        <div className="flex items-center gap-4">
+          {/* Cart Icon */}
+          <CartDrawer onCheckout={() => navigate('/checkout')}>
+            <CartIcon onClick={() => {}} />
+          </CartDrawer>
+          
+          <button className="px-5 py-2 border border-burntOrange text-burntOrange text-sm rounded-sm hover:bg-burntOrange hover:text-white transition-all duration-300">
+            Request Catalog
+          </button>
+        </div>
       </div>
     </nav>
   );
