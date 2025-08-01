@@ -66,7 +66,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/70 text-sm mb-4 md:mb-0">
-            © 2025 RT Metal Solutions. All Rights Reserved.
+            © 2025 RT Furniture. All Rights Reserved.
           </p>
           <div className="flex space-x-4 text-sm text-white/50">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>

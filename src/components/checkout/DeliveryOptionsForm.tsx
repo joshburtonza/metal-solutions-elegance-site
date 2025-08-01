@@ -109,7 +109,7 @@ export const DeliveryOptionsForm: React.FC<DeliveryOptionsFormProps> = ({
           <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <h4 className="font-medium text-blue-900 mb-2">Collection Information</h4>
             <p className="text-sm text-blue-800 mb-2">
-              <strong>Address:</strong> RT Metal Solutions Showroom<br />
+              <strong>Address:</strong> RT Furniture Showroom<br />
               123 Industrial Street, Randburg, Gauteng, 2194
             </p>
             <p className="text-sm text-blue-800 mb-2">

@@ -81,7 +81,7 @@ const HeroSection = () => {
       <div className="relative h-full flex flex-col justify-center items-center z-10 px-4">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
-            <span className="text-white">RT METAL SOLUTIONS</span> 
+            <span className="text-white">RT FURNITURE</span> 
             <span className="text-burntOrange ml-2">2025</span>
           </h1>
           

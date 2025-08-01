@@ -39,7 +39,7 @@ const Navbar = () => {
       )}
     >
       <div className="container flex justify-between items-center">
-        <div className="text-2xl font-bold text-white">RT<span className="text-burntOrange">MS</span></div>
+        <div className="text-2xl font-bold text-white">RT <span className="text-burntOrange">Furniture</span></div>
         
         <div className="hidden md:flex space-x-8">
           {[

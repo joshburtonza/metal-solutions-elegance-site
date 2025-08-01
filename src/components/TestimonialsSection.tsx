@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
-    text: "RT Metal Solutions transformed our hotel lobby with their HOTEL collection. The precision craftsmanship and attention to detail is exceptional.",
+    text: "RT Furniture transformed our hotel lobby with their HOTEL collection. The precision craftsmanship and attention to detail is exceptional.",
     author: "James Wilson",
     title: "Design Director, Grand Meridian Hotels",
     image: "https://images.unsplash.com/photo-1611689102192-1f6e0e52df0a?q=80&w=1965"
@@ -22,7 +22,7 @@ const testimonials = [
     image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2069"
   },
   {
-    text: "The SWING BENCH has become the centerpiece of our patio. RT Metal Solutions delivers exactly what they promise - luxury and quality.",
+    text: "The SWING BENCH has become the centerpiece of our patio. RT Furniture delivers exactly what they promise - luxury and quality.",
     author: "Emily Johnson",
     title: "Landscape Architect",
     image: "https://images.unsplash.com/photo-1615529328331-f8917597711f?q=80&w=2070"
@@ -78,7 +78,7 @@ const TestimonialsSection = () => {
             Customer <span className="text-gradient">Testimonials</span>
           </h2>
           <p className="text-white/70 max-w-2xl">
-            Discover what our clients have to say about their experiences with RT Metal Solutions' premium furniture.
+            Discover what our clients have to say about their experiences with RT Furniture' premium furniture.
           </p>
         </div>
 

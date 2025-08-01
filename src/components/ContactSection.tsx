@@ -54,7 +54,7 @@ const ContactSection = () => {
 
             <div className="h-full">
               <div className="h-full rounded-md overflow-hidden">
-                <iframe title="RT Metal Solutions Location" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114488.01788023044!2d28.058043057236456!3d-26.215413064030874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95124e6ad30e9d%3A0xd37b3752ab0a8645!2sGermiston%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1716449753911!5m2!1sen!2sus" width="100%" height="100%" style={{
+                <iframe title="RT Furniture Location" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114488.01788023044!2d28.058043057236456!3d-26.215413064030874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95124e6ad30e9d%3A0xd37b3752ab0a8645!2sGermiston%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1716449753911!5m2!1sen!2sus" width="100%" height="100%" style={{
                 border: 0,
                 minHeight: "300px"
               }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
