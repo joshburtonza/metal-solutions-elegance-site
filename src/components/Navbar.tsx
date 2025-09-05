@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { cn } from "@/lib/utils";
 import { CartIcon } from "@/components/cart/CartIcon";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { AuthButtons } from "@/components/auth/AuthButtons";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -60,6 +61,9 @@ const Navbar = () => {
         </div>
         
         <div className="flex items-center gap-4">
+          {/* Auth Buttons */}
+          <AuthButtons />
+          
           {/* Cart Icon */}
           <CartDrawer onCheckout={() => navigate('/checkout')}>
             <CartIcon onClick={() => {}} />

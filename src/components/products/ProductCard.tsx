@@ -6,8 +6,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useCart } from '@/contexts/CartContext';
 import { formatCurrency } from '@/lib/utils';
 import { Product } from '@/types/ecommerce';
-import { ShoppingCart, Eye, Package } from 'lucide-react';
+import { ShoppingCart, Eye, Package, Star } from 'lucide-react';
 import { ProductDetailModal } from './ProductDetailModal';
+import { WishlistButton } from '@/components/wishlist/WishlistButton';
 
 interface ProductCardProps {
   product: Product;
@@ -18,6 +19,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   const { addToCart } = useCart();
   const [selectedFinish, setSelectedFinish] = useState<string>('');
   const [showDetail, setShowDetail] = useState(false);
+
+  // Mock rating for demo - in real app, this would come from reviews
+  const averageRating = 4.2;
+  const reviewCount = 24;
 
   const handleAddToCart = () => {
     const finish = product.finishOptions && product.finishOptions.length > 0 
@@ -61,12 +66,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           </div>
 
           {/* Quick Actions */}
-          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <WishlistButton 
+              product={product} 
+              size="sm" 
+              variant="ghost"
+              className="bg-white/90 hover:bg-white text-charcoal"
+            />
             <Button
               variant="secondary"
               size="sm"
               onClick={() => setShowDetail(true)}
-              className="mb-2"
+              className="bg-white/90 hover:bg-white text-charcoal"
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -93,6 +104,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
             <h3 className="font-medium text-lg">{product.name}</h3>
             <p className="text-sm text-muted-foreground">{product.itemCode}</p>
             <p className="text-sm text-muted-foreground">{product.category}</p>
+          </div>
+
+          {/* Rating */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                  key={star}
+                  className={`h-3 w-3 ${
+                    star <= Math.round(averageRating)
+                      ? 'fill-yellow-400 text-yellow-400'
+                      : 'text-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="text-sm text-muted-foreground">
+              {averageRating} ({reviewCount})
+            </span>
           </div>
 
           <div className="space-y-2">

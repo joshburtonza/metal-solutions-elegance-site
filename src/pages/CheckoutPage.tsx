@@ -137,13 +137,12 @@ export default function CheckoutPage() {
                       </div>
                       
                       <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
-                        <h3 className="font-medium mb-2 text-primary">Payment Information</h3>
+                        <h3 className="font-medium mb-2 text-primary">Payment</h3>
                         <p className="text-sm text-muted-foreground mb-4">
-                          Payment processing will be integrated with PayFast in the next phase. 
-                          For now, this will create a pending order that can be processed manually.
+                          Secure payment processing with PayFast
                         </p>
                         <Button onClick={handleOrderSubmit} className="w-full" size="lg">
-                          Place Order
+                          Place Order (Demo - No Real Payment)
                         </Button>
                       </div>
                     </div>
