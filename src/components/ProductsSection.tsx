@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { products } from "@/data/enhancedProducts";
 import { ProductCard } from "@/components/products/ProductCard";
@@ -14,6 +14,21 @@ const productCategories = [
 const ProductsSection = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+
+  // Listen for collection filter events from CollectionsSection
+  useEffect(() => {
+    const handleCategoryFilter = (event: CustomEvent) => {
+      const { category } = event.detail;
+      setSelectedCategory(category);
+      setIsCategoryDropdownOpen(false);
+    };
+
+    window.addEventListener('filterByCategory', handleCategoryFilter as EventListener);
+    
+    return () => {
+      window.removeEventListener('filterByCategory', handleCategoryFilter as EventListener);
+    };
+  }, []);
 
   const toggleDropdown = () => setIsCategoryDropdownOpen(!isCategoryDropdownOpen);
 

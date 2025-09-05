@@ -66,9 +66,21 @@ const CollectionsSection = () => {
                 }`}>
                   {collection.description}
                 </p>
-                <button className={`flex items-center text-burntOrange transform transition-all duration-300 ${
-                  hoveredIndex === index ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}>
+                <button 
+                  className={`flex items-center text-burntOrange transform transition-all duration-300 ${
+                    hoveredIndex === index ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                  }`}
+                  onClick={() => {
+                    const productsSection = document.getElementById('products');
+                    if (productsSection) {
+                      productsSection.scrollIntoView({ behavior: 'smooth' });
+                      // Trigger category filter - we'll emit a custom event
+                      window.dispatchEvent(new CustomEvent('filterByCategory', { 
+                        detail: { category: collection.name } 
+                      }));
+                    }
+                  }}
+                >
                   <span className="mr-1">View Collection</span>
                   <ChevronRight className="h-4 w-4" />
                 </button>

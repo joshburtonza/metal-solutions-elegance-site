@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
@@ -8,11 +9,12 @@ interface CartIconProps {
   className?: string;
 }
 
-export const CartIcon: React.FC<CartIconProps> = ({ onClick, className }) => {
+export const CartIcon = forwardRef<HTMLButtonElement, CartIconProps>(({ onClick, className }, ref) => {
   const { cart } = useCart();
 
   return (
     <Button
+      ref={ref}
       variant="ghost"
       size="sm"
       onClick={onClick}
@@ -29,4 +31,6 @@ export const CartIcon: React.FC<CartIconProps> = ({ onClick, className }) => {
       )}
     </Button>
   );
-};
+});
+
+CartIcon.displayName = 'CartIcon';
