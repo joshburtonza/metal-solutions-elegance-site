@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCart } from '@/contexts/CartContext';
+import { useOrders } from '@/contexts/OrderContext';
 import { CheckoutSteps } from '@/components/checkout/CheckoutSteps';
 import { CartSummary } from '@/components/checkout/CartSummary';
 import { CustomerDetailsForm } from '@/components/checkout/CustomerDetailsForm';
@@ -15,6 +16,7 @@ import { ArrowLeft } from 'lucide-react';
 export default function CheckoutPage() {
   const navigate = useNavigate();
   const { cart, clearCart } = useCart();
+  const { addOrder } = useOrders();
   const [currentStep, setCurrentStep] = useState(1);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [selectedDelivery, setSelectedDelivery] = useState<DeliveryOption | null>(null);
@@ -49,6 +51,8 @@ export default function CheckoutPage() {
       estimatedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 1 week from now
     };
 
+    // Add to orders context
+    addOrder(newOrder);
     setOrder(newOrder);
     clearCart();
     setCurrentStep(4);

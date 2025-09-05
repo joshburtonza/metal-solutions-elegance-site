@@ -3,12 +3,18 @@ import { useState, useEffect } from 'react';
 import { cn } from "@/lib/utils";
 import { CartIcon } from "@/components/cart/CartIcon";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { CompareDrawer } from "@/components/compare/CompareDrawer";
 import { AuthButtons } from "@/components/auth/AuthButtons";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
+import { useCompare } from "@/contexts/CompareContext";
+import { BarChart3 } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+  const { compareCount } = useCompare();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -63,6 +69,21 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {/* Auth Buttons */}
           <AuthButtons />
+          
+          {/* Compare Icon */}
+          <CompareDrawer>
+            <Button variant="ghost" size="sm" className="relative">
+              <BarChart3 className="h-5 w-5" />
+              {compareCount > 0 && (
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
+                >
+                  {compareCount}
+                </Badge>
+              )}
+            </Button>
+          </CompareDrawer>
           
           {/* Cart Icon */}
           <CartDrawer onCheckout={() => navigate('/checkout')}>

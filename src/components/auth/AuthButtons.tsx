@@ -38,15 +38,9 @@ export const AuthButtons: React.FC = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => window.location.href = '/account'}>
               <User className="mr-2 h-4 w-4" />
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Orders
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Wishlist
+              My Account
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>

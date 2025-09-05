@@ -9,6 +9,7 @@ import { Product } from '@/types/ecommerce';
 import { ShoppingCart, Eye, Package, Star } from 'lucide-react';
 import { ProductDetailModal } from './ProductDetailModal';
 import { WishlistButton } from '@/components/wishlist/WishlistButton';
+import { CompareButton } from '@/components/compare/CompareButton';
 
 interface ProductCardProps {
   product: Product;
@@ -68,6 +69,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           {/* Quick Actions */}
           <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <WishlistButton 
+              product={product} 
+              size="sm" 
+              variant="ghost"
+              className="bg-white/90 hover:bg-white text-charcoal"
+            />
+            <CompareButton 
               product={product} 
               size="sm" 
               variant="ghost"
