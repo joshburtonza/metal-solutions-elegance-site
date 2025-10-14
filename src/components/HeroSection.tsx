@@ -66,7 +66,7 @@ const HeroSection = () => {
             }`}
             aria-hidden={currentSlide !== index}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal-dark/95 via-charcoal-dark/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/50 to-transparent" />
             <img
               src={image.src}
               alt={image.alt}
@@ -81,8 +81,8 @@ const HeroSection = () => {
       <div className="relative h-full flex flex-col justify-center items-center z-10 px-4">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
-            <span className="text-white">RT FURNITURE</span> 
-            <span className="text-burntOrange ml-2">2025</span>
+            <span className="text-gradient">LUXE LIVING</span> 
+            <span className="text-white ml-2">2025</span>
           </h1>
           
           <p className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "200ms" }}>
@@ -91,7 +91,7 @@ const HeroSection = () => {
           
           <button 
             onClick={() => document.getElementById('collections')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-3 bg-burntOrange text-white font-medium rounded-sm transform transition-all duration-300 hover:bg-burntOrange/90 hover:shadow-lg hover:translate-y-[-2px] animate-fade-in"
+            className="px-8 py-3 bg-primary text-primary-foreground font-medium rounded-sm transform transition-all duration-300 hover:bg-primary/90 button-hover glass-card animate-fade-in"
             style={{ animationDelay: "400ms" }}
           >
             Explore Collections
@@ -106,9 +106,10 @@ const HeroSection = () => {
               onClick={() => goToSlide(index)}
               className={`w-3 h-3 rounded-full transition-all duration-500 ${
                 currentSlide === index 
-                  ? "bg-burntOrange w-10 shadow-[0_0_8px_rgba(249,115,22,0.6)]" 
+                  ? "bg-primary w-10" 
                   : "bg-white/50 hover:bg-white/70"
               }`}
+              style={currentSlide === index ? { boxShadow: 'var(--shadow-chrome-glow)' } : {}}
               aria-label={`Go to slide ${index + 1}`}
               disabled={isTransitioning}
             />

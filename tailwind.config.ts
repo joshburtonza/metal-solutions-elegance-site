@@ -64,14 +64,16 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				// Custom colors
-				charcoal: {
-					DEFAULT: '#333333',
-					light: '#555555',
-					dark: '#222222'
+				platinum: {
+					DEFAULT: 'hsl(0 0% 70%)',
+					light: 'hsl(0 0% 85%)',
+					dark: 'hsl(0 0% 25%)'
 				},
-				burntOrange: '#F97316',
-				gold: '#D4AF37',
-				copper: '#B87333',
+				chrome: {
+					blue: 'hsl(205 100% 60%)',
+					light: 'hsl(205 100% 75%)',
+					dark: 'hsl(205 100% 45%)'
+				},
 			},
 			fontFamily: {
 				sans: ['Montserrat', 'sans-serif'],

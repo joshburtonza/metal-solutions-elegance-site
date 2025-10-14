@@ -10,15 +10,15 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-charcoal-dark border-t border-white/10">
+    <footer className="bg-background border-t border-primary/20">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           <div>
-            <div className="text-3xl font-bold mb-3">RT<span className="text-burntOrange">MS</span></div>
+            <div className="text-3xl font-bold mb-3 text-gradient">Luxe Living</div>
             <p className="text-white/70 mb-6">
               Contemporary steel furniture and décor, meticulously crafted for modern living spaces.
             </p>
-            <button className="px-4 py-2 bg-burntOrange text-white flex items-center space-x-2 rounded-sm hover:bg-burntOrange/90 transition-colors">
+            <button className="px-4 py-2 bg-primary text-primary-foreground flex items-center space-x-2 rounded-sm hover:bg-primary/90 transition-colors button-hover">
               <span>Request Catalog</span>
               <ChevronRight className="h-4 w-4" />
             </button>
@@ -37,7 +37,7 @@ const Footer = () => {
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="text-white/70 hover:text-burntOrange transition-colors flex items-center py-1"
+                  className="text-white/70 hover:text-primary transition-colors flex items-center py-1"
                 >
                   <ChevronRight className="h-3 w-3 mr-1" />
                   <span>{link.name}</span>
@@ -55,18 +55,18 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Your email address"
-                className="flex-grow px-3 py-2 bg-charcoal border border-white/10 rounded-l-sm focus:outline-none focus:border-burntOrange"
+                className="flex-grow px-3 py-2 bg-card border border-primary/20 rounded-l-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
               />
-              <button className="px-4 py-2 bg-burntOrange text-white rounded-r-sm hover:bg-burntOrange/90 transition-colors">
+              <button className="px-4 py-2 bg-primary text-primary-foreground rounded-r-sm hover:bg-primary/90 transition-colors button-hover">
                 Subscribe
               </button>
             </div>
           </div>
         </div>
         
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-12 pt-6 border-t border-primary/20 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/70 text-sm mb-4 md:mb-0">
-            © 2025 RT Furniture. All Rights Reserved.
+            © 2025 Luxe Living. All Rights Reserved.
           </p>
           <div className="flex space-x-4 text-sm text-white/50">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>

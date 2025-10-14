@@ -50,14 +50,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Load user from localStorage on mount
   useEffect(() => {
-    const savedUser = localStorage.getItem('rt-furniture-user');
+    const savedUser = localStorage.getItem('luxe-living-user');
     if (savedUser) {
       try {
         const parsedUser = JSON.parse(savedUser);
         setUser(parsedUser);
       } catch (error) {
         console.error('Error parsing saved user:', error);
-        localStorage.removeItem('rt-furniture-user');
+        localStorage.removeItem('luxe-living-user');
       }
     }
     setIsLoading(false);
@@ -66,9 +66,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Save user to localStorage whenever user changes
   useEffect(() => {
     if (user) {
-      localStorage.setItem('rt-furniture-user', JSON.stringify(user));
+      localStorage.setItem('luxe-living-user', JSON.stringify(user));
     } else {
-      localStorage.removeItem('rt-furniture-user');
+      localStorage.removeItem('luxe-living-user');
     }
   }, [user]);
 
@@ -125,7 +125,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(newUser);
       toast({
         title: "Account created!",
-        description: "Welcome to RT Furniture. Your account has been created successfully.",
+        description: "Welcome to Luxe Living. Your account has been created successfully.",
       });
     } catch (error) {
       toast({

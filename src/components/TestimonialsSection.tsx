@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
-    text: "RT Furniture transformed our hotel lobby with their HOTEL collection. The precision craftsmanship and attention to detail is exceptional.",
+    text: "Luxe Living transformed our hotel lobby with their HOTEL collection. The precision craftsmanship and attention to detail is exceptional.",
     author: "James Wilson",
     title: "Design Director, Grand Meridian Hotels",
     image: "https://images.unsplash.com/photo-1611689102192-1f6e0e52df0a?q=80&w=1965"
@@ -22,7 +22,7 @@ const testimonials = [
     image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2069"
   },
   {
-    text: "The SWING BENCH has become the centerpiece of our patio. RT Furniture delivers exactly what they promise - luxury and quality.",
+    text: "The SWING BENCH has become the centerpiece of our patio. Luxe Living delivers exactly what they promise - luxury and quality.",
     author: "Emily Johnson",
     title: "Landscape Architect",
     image: "https://images.unsplash.com/photo-1615529328331-f8917597711f?q=80&w=2070"
@@ -71,14 +71,14 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <section id="testimonials" className="section-padding bg-charcoal">
+    <section id="testimonials" className="section-padding bg-card">
       <div className="container">
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Customer <span className="text-gradient">Testimonials</span>
           </h2>
           <p className="text-white/70 max-w-2xl">
-            Discover what our clients have to say about their experiences with RT Furniture' premium furniture.
+            Discover what our clients have to say about their experiences with Luxe Living's premium furniture.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ const TestimonialsSection = () => {
           <div className="absolute top-1/2 -translate-y-1/2 left-4">
             <button
               onClick={goToPrevTestimonial}
-              className="bg-charcoal/50 hover:bg-burntOrange p-2 rounded-full transition-colors"
+              className="bg-card/50 hover:bg-primary p-2 rounded-full transition-colors glass-card"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -132,7 +132,7 @@ const TestimonialsSection = () => {
           <div className="absolute top-1/2 -translate-y-1/2 right-4">
             <button
               onClick={goToNextTestimonial}
-              className="bg-charcoal/50 hover:bg-burntOrange p-2 rounded-full transition-colors"
+              className="bg-card/50 hover:bg-primary p-2 rounded-full transition-colors glass-card"
               aria-label="Next testimonial"
             >
               <ChevronRight className="h-5 w-5" />
@@ -146,8 +146,9 @@ const TestimonialsSection = () => {
                 key={index}
                 onClick={() => setCurrentTestimonial(index)}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  currentTestimonial === index ? "bg-burntOrange w-6" : "bg-white/30"
+                  currentTestimonial === index ? "bg-primary w-6" : "bg-white/30"
                 }`}
+                style={currentTestimonial === index ? { boxShadow: 'var(--shadow-chrome-glow)' } : {}}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}

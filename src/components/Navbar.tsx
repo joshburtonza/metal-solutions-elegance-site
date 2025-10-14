@@ -41,12 +41,12 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled 
-          ? "py-3 bg-charcoal-dark/90 backdrop-blur-lg shadow-lg" 
+          ? "py-3 bg-background/90 backdrop-blur-lg shadow-lg border-b border-primary/20" 
           : "py-5 bg-transparent"
       )}
     >
       <div className="container flex justify-between items-center">
-        <div className="text-2xl font-bold text-white">RT <span className="text-burntOrange">Furniture</span></div>
+        <div className="text-2xl font-bold text-gradient">Luxe Living</div>
         
         <div className="hidden md:flex space-x-8">
           {[
@@ -59,7 +59,7 @@ const Navbar = () => {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className="text-white/80 hover:text-burntOrange transition-colors duration-300 text-sm uppercase tracking-wider"
+              className="text-white/80 hover:text-primary transition-colors duration-300 text-sm uppercase tracking-wider"
             >
               {item.name}
             </button>
@@ -90,7 +90,7 @@ const Navbar = () => {
             <CartIcon onClick={() => {}} />
           </CartDrawer>
           
-          <button className="px-5 py-2 border border-burntOrange text-burntOrange text-sm rounded-sm hover:bg-burntOrange hover:text-white transition-all duration-300">
+          <button className="px-5 py-2 border border-primary text-primary text-sm rounded-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 button-hover">
             Request Catalog
           </button>
         </div>
