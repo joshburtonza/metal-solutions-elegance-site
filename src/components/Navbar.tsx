@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { useCompare } from "@/contexts/CompareContext";
 import { BarChart3 } from "lucide-react";
+import logo from "@/assets/luxe-logo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -46,7 +47,10 @@ const Navbar = () => {
       )}
     >
       <div className="container flex justify-between items-center">
-        <div className="text-2xl font-bold text-gradient">Luxe Living</div>
+        <div className="flex items-center gap-3">
+          <img src={logo} alt="Luxe Living" className="h-12 w-12 object-contain" />
+          <div className="text-2xl font-bold text-gradient">Luxe Living</div>
+        </div>
         
         <div className="hidden md:flex space-x-8">
           {[
