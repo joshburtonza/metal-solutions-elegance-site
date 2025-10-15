@@ -64,15 +64,15 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				// Custom colors
-				platinum: {
-					DEFAULT: 'hsl(0 0% 70%)',
-					light: 'hsl(0 0% 85%)',
-					dark: 'hsl(0 0% 25%)'
-				},
 				chrome: {
-					blue: 'hsl(205 100% 60%)',
-					light: 'hsl(205 100% 75%)',
-					dark: 'hsl(205 100% 45%)'
+					DEFAULT: 'hsl(40 26% 60%)',
+					light: 'hsl(40 30% 75%)',
+					dark: 'hsl(40 26% 45%)'
+				},
+				gold: {
+					DEFAULT: 'hsl(27 49% 17%)',
+					light: 'hsl(27 60% 25%)',
+					dark: 'hsl(27 49% 10%)'
 				},
 			},
 			fontFamily: {
