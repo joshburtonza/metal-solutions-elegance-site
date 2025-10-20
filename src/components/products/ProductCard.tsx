@@ -105,13 +105,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           className="absolute bottom-0 left-0 right-0 h-2/3 z-20"
           style={{
             background: `
-              radial-gradient(ellipse at bottom right, hsl(40 26% 60% / 0.4) -10%, transparent 70%),
-              radial-gradient(ellipse at bottom left, hsl(27 49% 17% / 0.5) -10%, transparent 70%)
+              radial-gradient(ellipse at bottom right, hsl(0 0% 75% / 0.3) -10%, transparent 70%),
+              radial-gradient(ellipse at bottom left, hsl(27 49% 17% / 0.4) -10%, transparent 70%)
             `,
             filter: "blur(40px)",
           }}
           animate={{
-            opacity: isHovered ? 0.9 : 0.7,
+            opacity: isHovered ? 0.8 : 0.6,
           }}
         />
 
@@ -119,11 +119,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-2/3 z-21"
           style={{
-            background: `radial-gradient(circle at bottom center, hsl(27 49% 17% / 0.6) -20%, transparent 60%)`,
+            background: `radial-gradient(circle at bottom center, hsl(27 49% 17% / 0.5) -20%, transparent 60%)`,
             filter: "blur(45px)",
           }}
           animate={{
-            opacity: isHovered ? 0.85 : 0.65,
+            opacity: isHovered ? 0.75 : 0.55,
           }}
         />
 
@@ -131,12 +131,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-[2px] z-25"
           style={{
-            background: "linear-gradient(90deg, transparent 0%, hsl(40 26% 60% / 0.7) 50%, transparent 100%)",
+            background: "linear-gradient(90deg, transparent 0%, hsl(0 0% 75% / 0.6) 50%, transparent 100%)",
           }}
           animate={{
             boxShadow: isHovered
-              ? "0 0 20px 4px hsl(40 26% 60% / 0.8), 0 0 30px 6px hsl(27 49% 17% / 0.6)"
-              : "0 0 15px 3px hsl(40 26% 60% / 0.6), 0 0 25px 5px hsl(27 49% 17% / 0.4)",
+              ? "0 0 20px 4px hsl(0 0% 75% / 0.7), 0 0 30px 6px hsl(27 49% 17% / 0.5)"
+              : "0 0 15px 3px hsl(0 0% 75% / 0.5), 0 0 25px 5px hsl(27 49% 17% / 0.3)",
             opacity: isHovered ? 1 : 0.8,
           }}
         />
@@ -226,9 +226,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           }}
         >
           <div className="space-y-1">
-            <h3 className="font-medium text-lg text-foreground">{product.name}</h3>
-            <p className="text-sm text-muted-foreground">{product.itemCode}</p>
-            <p className="text-sm text-muted-foreground">{product.category}</p>
+            <h3 className="font-medium text-lg text-white">{product.name}</h3>
+            <p className="text-sm text-white/70">{product.itemCode}</p>
+            <p className="text-sm text-white/60">{product.category}</p>
           </div>
 
           {/* Rating */}
@@ -240,19 +240,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
                   className={`h-3 w-3 ${
                     star <= Math.round(averageRating)
                       ? 'fill-primary text-primary'
-                      : 'text-muted-foreground'
+                      : 'text-white/40'
                   }`}
                 />
               ))}
             </div>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm text-white/70">
               {averageRating} ({reviewCount})
             </span>
           </div>
 
           <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">{product.materials}</p>
-            <p className="text-xs text-muted-foreground">{product.dimensions}</p>
+            <p className="text-sm text-white/80">{product.materials}</p>
+            <p className="text-xs text-white/60">{product.dimensions}</p>
           </div>
 
           <div className="flex items-center justify-between">
@@ -262,7 +262,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
                   <span className="text-lg font-medium text-primary">
                     {formatCurrency(product.price)}
                   </span>
-                  <span className="text-sm text-muted-foreground line-through">
+                  <span className="text-sm text-white/50 line-through">
                     {formatCurrency(product.originalPrice)}
                   </span>
                 </div>
@@ -271,16 +271,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
                   {formatCurrency(product.price)}
                 </span>
               )}
-              <p className="text-xs text-muted-foreground">VAT included</p>
+              <p className="text-xs text-white/60">VAT included</p>
             </div>
           </div>
 
           {/* Finish Selection */}
           {product.finishOptions && product.finishOptions.length > 1 && (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Finish Options:</label>
+              <label className="text-sm font-medium text-white">Finish Options:</label>
               <Select value={selectedFinish} onValueChange={setSelectedFinish}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-black/40 border-white/20 text-white">
                   <SelectValue placeholder="Select finish" />
                 </SelectTrigger>
                 <SelectContent>
@@ -310,7 +310,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           </Button>
 
           {product.deliveryTime && (
-            <p className="text-xs text-muted-foreground text-center">
+            <p className="text-xs text-white/60 text-center">
               Delivery: {product.deliveryTime}
             </p>
           )}

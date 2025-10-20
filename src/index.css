@@ -7,34 +7,34 @@
   :root {
     --background: 0 0% 8%;
     --foreground: 0 0% 98%;
-    --card: 40 26% 60%;
-    --card-foreground: 0 0% 10%;
-    --popover: 40 26% 55%;
-    --popover-foreground: 0 0% 10%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
     --primary: 27 49% 17%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 40 26% 60%;
+    --secondary: 0 0% 85%;
     --secondary-foreground: 0 0% 10%;
-    --muted: 40 20% 50%;
-    --muted-foreground: 0 0% 20%;
+    --muted: 0 0% 25%;
+    --muted-foreground: 0 0% 70%;
     --accent: 27 49% 17%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 40 26% 70%;
-    --input: 40 26% 55%;
+    --border: 0 0% 30%;
+    --input: 0 0% 20%;
     --ring: 27 49% 17%;
     --chart-1: 27 49% 17%;
-    --chart-2: 40 26% 60%;
+    --chart-2: 0 0% 75%;
     --chart-3: 27 60% 25%;
-    --chart-4: 40 30% 50%;
+    --chart-4: 0 0% 65%;
     --chart-5: 27 40% 35%;
     --radius: 0.4rem;
     
-    --gradient-platinum: linear-gradient(135deg, hsl(40 26% 60%), hsl(40 30% 70%), hsl(40 26% 55%));
-    --gradient-chrome: linear-gradient(135deg, hsl(40 26% 60%), hsl(40 30% 75%));
+    --gradient-platinum: linear-gradient(135deg, hsl(0 0% 85%), hsl(0 0% 90%), hsl(0 0% 80%));
+    --gradient-chrome: linear-gradient(135deg, hsl(0 0% 75%), hsl(0 0% 85%));
     --gradient-gold: linear-gradient(135deg, hsl(27 49% 17%), hsl(27 60% 25%));
-    --shadow-chrome-glow: 0 0 30px hsl(40 26% 60% / 0.3), 0 0 60px hsl(40 26% 60% / 0.15);
+    --shadow-chrome-glow: 0 0 30px hsl(0 0% 75% / 0.3), 0 0 60px hsl(0 0% 75% / 0.15);
     --shadow-gold-glow: 0 0 30px hsl(27 49% 17% / 0.4), 0 0 60px hsl(27 49% 17% / 0.2);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -64,11 +64,11 @@
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, hsl(40 26% 60%), hsl(40 30% 80%));
+    background: linear-gradient(135deg, hsl(0 0% 85%), hsl(0 0% 95%));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 20px hsl(40 26% 60% / 0.5));
+    filter: drop-shadow(0 0 20px hsl(0 0% 75% / 0.5));
   }
   
   .button-hover {
@@ -76,7 +76,7 @@
   }
 
   .glass-card {
-    @apply bg-card/40 backdrop-blur-sm border border-card/30;
+    @apply bg-card/80 backdrop-blur-sm border border-border;
     box-shadow: var(--shadow-chrome-glow);
   }
 }
@@ -131,11 +131,11 @@
   font-size: clamp(3rem, 8vw, 7rem);
   font-weight: 700;
   letter-spacing: 0.05em;
-  background: linear-gradient(135deg, hsl(40 26% 60%), hsl(40 30% 80%));
+  background: linear-gradient(135deg, hsl(0 0% 85%), hsl(0 0% 95%));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 30px hsl(40 26% 60% / 0.6));
+  filter: drop-shadow(0 0 30px hsl(0 0% 75% / 0.6));
   text-transform: uppercase;
   animation: fade-in 1s ease-out;
 }
@@ -188,8 +188,8 @@
   font-size: 1.5rem;
   font-weight: 300;
   letter-spacing: 0.2em;
-  color: hsl(40 26% 60%);
-  text-shadow: 0 0 20px hsl(40 26% 60% / 0.5);
+  color: hsl(0 0% 85%);
+  text-shadow: 0 0 20px hsl(0 0% 75% / 0.5);
 }
 
 /* Custom Scrollbar */

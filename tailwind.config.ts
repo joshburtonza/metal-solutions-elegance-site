@@ -65,9 +65,9 @@ export default {
 				},
 				// Custom colors
 				chrome: {
-					DEFAULT: 'hsl(40 26% 60%)',
-					light: 'hsl(40 30% 75%)',
-					dark: 'hsl(40 26% 45%)'
+					DEFAULT: 'hsl(0 0% 75%)',
+					light: 'hsl(0 0% 85%)',
+					dark: 'hsl(0 0% 65%)'
 				},
 				gold: {
 					DEFAULT: 'hsl(27 49% 17%)',
