@@ -106,12 +106,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           style={{
             background: `
               radial-gradient(ellipse at bottom right, hsl(0 0% 75% / 0.3) -10%, transparent 70%),
-              radial-gradient(ellipse at bottom left, hsl(27 49% 17% / 0.4) -10%, transparent 70%)
+              radial-gradient(ellipse at bottom left, hsl(var(--primary) / 0.45) -10%, transparent 70%)
             `,
             filter: "blur(40px)",
           }}
           animate={{
-            opacity: isHovered ? 0.8 : 0.6,
+            opacity: isHovered ? 0.85 : 0.65,
           }}
         />
 
@@ -119,11 +119,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-2/3 z-21"
           style={{
-            background: `radial-gradient(circle at bottom center, hsl(27 49% 17% / 0.5) -20%, transparent 60%)`,
+            background: `radial-gradient(circle at bottom center, hsl(var(--primary) / 0.55) -20%, transparent 60%)`,
             filter: "blur(45px)",
           }}
           animate={{
-            opacity: isHovered ? 0.75 : 0.55,
+            opacity: isHovered ? 0.8 : 0.6,
           }}
         />
 
@@ -135,8 +135,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           }}
           animate={{
             boxShadow: isHovered
-              ? "0 0 20px 4px hsl(0 0% 75% / 0.7), 0 0 30px 6px hsl(27 49% 17% / 0.5)"
-              : "0 0 15px 3px hsl(0 0% 75% / 0.5), 0 0 25px 5px hsl(27 49% 17% / 0.3)",
+              ? "0 0 20px 4px hsl(0 0% 75% / 0.7), 0 0 30px 6px hsl(var(--primary) / 0.5)"
+              : "0 0 15px 3px hsl(0 0% 75% / 0.5), 0 0 25px 5px hsl(var(--primary) / 0.3)",
             opacity: isHovered ? 1 : 0.8,
           }}
         />
@@ -296,7 +296,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
 
           <Button
             onClick={handleAddToCart}
-            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold shadow-gold-glow transition-all hover:shadow-[0_0_40px_hsl(27_49%_17%/0.6)]"
+            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold transition-all hover:shadow-[0_0_40px_hsl(var(--primary)/0.6)]"
             disabled={isOutOfStock}
           >
             {isOutOfStock ? (

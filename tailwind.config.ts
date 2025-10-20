@@ -70,9 +70,9 @@ export default {
 					dark: 'hsl(0 0% 65%)'
 				},
 				gold: {
-					DEFAULT: 'hsl(27 49% 17%)',
-					light: 'hsl(27 60% 25%)',
-					dark: 'hsl(27 49% 10%)'
+					DEFAULT: 'hsl(46 65% 52%)',
+					light: 'hsl(46 80% 60%)',
+					dark: 'hsl(42 65% 35%)'
 				},
 			},
 			fontFamily: {
