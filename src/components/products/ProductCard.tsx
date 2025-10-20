@@ -158,17 +158,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-2">
             {product.isNew && (
-              <Badge variant="default" className="bg-primary text-primary-foreground">
+              <Badge variant="default" className="bg-primary text-white font-medium">
                 NEW
               </Badge>
             )}
             {product.isFeatured && (
-              <Badge variant="secondary">
+              <Badge className="bg-chrome text-black font-medium">
                 FEATURED
               </Badge>
             )}
             {product.originalPrice && (
-              <Badge variant="destructive">
+              <Badge variant="destructive" className="font-medium">
                 SALE
               </Badge>
             )}
@@ -205,13 +205,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           {/* Stock Status */}
           <div className="absolute bottom-3 left-3">
             {isOutOfStock ? (
-              <Badge variant="destructive" className="flex items-center gap-1">
+              <Badge variant="destructive" className="flex items-center gap-1 font-medium">
                 <Package className="h-3 w-3" />
                 Out of Stock
               </Badge>
             ) : isLowStock ? (
-              <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-300">
-                <Package className="h-3 w-3 mr-1" />
+              <Badge className="flex items-center gap-1 bg-primary text-white border-primary font-medium">
+                <Package className="h-3 w-3" />
                 Low Stock
               </Badge>
             ) : null}
@@ -226,9 +226,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           }}
         >
           <div className="space-y-1">
-            <h3 className="font-medium text-lg text-white">{product.name}</h3>
-            <p className="text-sm text-white/70">{product.itemCode}</p>
-            <p className="text-sm text-white/60">{product.category}</p>
+            <h3 className="font-semibold text-xl text-white tracking-tight">{product.name}</h3>
+            <p className="text-sm text-chrome-light font-medium">{product.itemCode}</p>
+            <p className="text-sm text-white/80 font-medium uppercase tracking-wide">{product.category}</p>
           </div>
 
           {/* Rating */}
@@ -237,55 +237,55 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
-                  className={`h-3 w-3 ${
+                  className={`h-4 w-4 ${
                     star <= Math.round(averageRating)
                       ? 'fill-primary text-primary'
-                      : 'text-white/40'
+                      : 'text-white/30'
                   }`}
                 />
               ))}
             </div>
-            <span className="text-sm text-white/70">
+            <span className="text-sm text-white/90 font-medium">
               {averageRating} ({reviewCount})
             </span>
           </div>
 
           <div className="space-y-2">
-            <p className="text-sm text-white/80">{product.materials}</p>
-            <p className="text-xs text-white/60">{product.dimensions}</p>
+            <p className="text-sm text-white/90 font-medium">{product.materials}</p>
+            <p className="text-xs text-chrome-light font-medium">{product.dimensions}</p>
           </div>
 
           <div className="flex items-center justify-between">
             <div className="space-y-1">
               {product.originalPrice ? (
                 <div className="flex items-center gap-2">
-                  <span className="text-lg font-medium text-primary">
+                  <span className="text-xl font-bold text-primary">
                     {formatCurrency(product.price)}
                   </span>
-                  <span className="text-sm text-white/50 line-through">
+                  <span className="text-sm text-white/60 line-through font-medium">
                     {formatCurrency(product.originalPrice)}
                   </span>
                 </div>
               ) : (
-                <span className="text-lg font-medium text-primary">
+                <span className="text-xl font-bold text-primary">
                   {formatCurrency(product.price)}
                 </span>
               )}
-              <p className="text-xs text-white/60">VAT included</p>
+              <p className="text-xs text-white/70 font-medium">VAT included</p>
             </div>
           </div>
 
           {/* Finish Selection */}
           {product.finishOptions && product.finishOptions.length > 1 && (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-white">Finish Options:</label>
+              <label className="text-sm font-semibold text-white">Finish Options:</label>
               <Select value={selectedFinish} onValueChange={setSelectedFinish}>
-                <SelectTrigger className="bg-black/40 border-white/20 text-white">
+                <SelectTrigger className="bg-black/50 border-white/30 text-white font-medium hover:border-chrome-light transition-colors">
                   <SelectValue placeholder="Select finish" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-black/95 border-white/30">
                   {product.finishOptions.map((finish) => (
-                    <SelectItem key={finish} value={finish}>
+                    <SelectItem key={finish} value={finish} className="text-white hover:bg-primary/20">
                       {finish}
                     </SelectItem>
                   ))}
@@ -296,7 +296,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
 
           <Button
             onClick={handleAddToCart}
-            className="w-full"
+            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold shadow-gold-glow transition-all hover:shadow-[0_0_40px_hsl(27_49%_17%/0.6)]"
             disabled={isOutOfStock}
           >
             {isOutOfStock ? (
@@ -310,7 +310,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           </Button>
 
           {product.deliveryTime && (
-            <p className="text-xs text-white/60 text-center">
+            <p className="text-xs text-chrome-light text-center font-medium">
               Delivery: {product.deliveryTime}
             </p>
           )}
