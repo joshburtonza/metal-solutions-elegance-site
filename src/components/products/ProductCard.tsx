@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useCart } from '@/contexts/CartContext';
 import { formatCurrency } from '@/lib/utils';
 import { Product } from '@/types/ecommerce';
-import { ShoppingCart, Eye, Package, Star } from 'lucide-react';
+import { ShoppingCart, Eye, Package } from 'lucide-react';
 import { ProductDetailModal } from './ProductDetailModal';
 import { WishlistButton } from '@/components/wishlist/WishlistButton';
 import { CompareButton } from '@/components/compare/CompareButton';
@@ -23,10 +23,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   const [isHovered, setIsHovered] = useState(false);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
-
-  // Mock rating for demo
-  const averageRating = 4.2;
-  const reviewCount = 24;
 
   const handleAddToCart = () => {
     const finish = product.finishOptions && product.finishOptions.length > 0 
@@ -229,25 +225,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
             <h3 className="font-semibold text-xl text-white tracking-tight">{product.name}</h3>
             <p className="text-sm text-chrome-light font-medium">{product.itemCode}</p>
             <p className="text-sm text-white/80 font-medium uppercase tracking-wide">{product.category}</p>
-          </div>
-
-          {/* Rating */}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star
-                  key={star}
-                  className={`h-4 w-4 ${
-                    star <= Math.round(averageRating)
-                      ? 'fill-primary text-primary'
-                      : 'text-white/30'
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="text-sm text-white/90 font-medium">
-              {averageRating} ({reviewCount})
-            </span>
           </div>
 
           <div className="space-y-2">

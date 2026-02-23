@@ -35,16 +35,16 @@ const ContactSection = () => {
                 <div>
                   <h3 className="text-lg font-medium mb-3">Connect With Us</h3>
                   <div className="flex space-x-4">
-                    <a href="#" className="glass-card hover:bg-primary p-3 rounded-full transition-colors" aria-label="Facebook">
+                    <a href="https://www.facebook.com/RTMetalSolutions" target="_blank" rel="noopener noreferrer" className="glass-card hover:bg-primary p-3 rounded-full transition-colors" aria-label="Facebook">
                       <Facebook className="h-5 w-5" />
                     </a>
-                    <a href="#" className="glass-card hover:bg-primary p-3 rounded-full transition-colors" aria-label="Instagram">
+                    <a href="https://www.instagram.com/rtmetalsolutions" target="_blank" rel="noopener noreferrer" className="glass-card hover:bg-primary p-3 rounded-full transition-colors" aria-label="Instagram">
                       <Instagram className="h-5 w-5" />
                     </a>
-                    <a href="#" className="glass-card hover:bg-primary p-3 rounded-full transition-colors" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/company/rt-metal-solutions" target="_blank" rel="noopener noreferrer" className="glass-card hover:bg-primary p-3 rounded-full transition-colors" aria-label="LinkedIn">
                       <Linkedin className="h-5 w-5" />
                     </a>
-                    <a href="#" className="glass-card hover:bg-primary p-3 rounded-full transition-colors" aria-label="Twitter">
+                    <a href="https://twitter.com/rtmetalsolutions" target="_blank" rel="noopener noreferrer" className="glass-card hover:bg-primary p-3 rounded-full transition-colors" aria-label="Twitter">
                       <Twitter className="h-5 w-5" />
                     </a>
                   </div>

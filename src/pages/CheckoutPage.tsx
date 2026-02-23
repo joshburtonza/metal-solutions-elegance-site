@@ -35,9 +35,10 @@ export default function CheckoutPage() {
   const handleOrderSubmit = () => {
     if (!customer || !selectedDelivery) return;
 
+    const orderNumber = generateOrderNumber();
     const newOrder: Order = {
       id: crypto.randomUUID(),
-      orderNumber: generateOrderNumber(),
+      orderNumber,
       customer,
       items: cart.items,
       subtotal: cart.subtotal,
@@ -48,14 +49,40 @@ export default function CheckoutPage() {
       paymentStatus: 'pending',
       deliveryOption: selectedDelivery,
       createdAt: new Date(),
-      estimatedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 1 week from now
+      estimatedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
     };
 
-    // Add to orders context
+    // Save order before redirecting to payment
     addOrder(newOrder);
-    setOrder(newOrder);
     clearCart();
-    setCurrentStep(4);
+
+    // Build PayFast sandbox form and submit
+    const payFastParams: Record<string, string> = {
+      merchant_id: '10000100',
+      merchant_key: '46f0cd694581a',
+      return_url: `${window.location.origin}/`,
+      cancel_url: `${window.location.href}`,
+      name_first: customer.firstName,
+      name_last: customer.lastName,
+      email_address: customer.email,
+      m_payment_id: orderNumber,
+      amount: (cart.total + selectedDelivery.price).toFixed(2),
+      item_name: `Luxe Living Order ${orderNumber}`,
+      item_description: cart.items.map(i => `${i.product.name} x${i.quantity}`).join(', ').slice(0, 255),
+    };
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://sandbox.payfast.co.za/eng/process';
+    Object.entries(payFastParams).forEach(([name, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value;
+      form.appendChild(input);
+    });
+    document.body.appendChild(form);
+    form.submit();
   };
 
   if (cart.items.length === 0 && !order) {
@@ -146,7 +173,7 @@ export default function CheckoutPage() {
                           Secure payment processing with PayFast
                         </p>
                         <Button onClick={handleOrderSubmit} className="w-full" size="lg">
-                          Place Order (Demo - No Real Payment)
+                          Pay with PayFast
                         </Button>
                       </div>
                     </div>

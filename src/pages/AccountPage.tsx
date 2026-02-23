@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { AccountDashboard } from '@/components/account/AccountDashboard';
 import { Button } from '@/components/ui/button';
@@ -8,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 export default function AccountPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const [isEditingProfile, setIsEditingProfile] = useState(false);
 
   if (!isAuthenticated) {
     return (

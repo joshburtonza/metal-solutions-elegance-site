@@ -5,7 +5,7 @@ import { useCart } from '@/contexts/CartContext';
 import { cn } from '@/lib/utils';
 
 interface CartIconProps {
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
 }
 

@@ -91,10 +91,13 @@ const Navbar = () => {
           
           {/* Cart Icon */}
           <CartDrawer onCheckout={() => navigate('/checkout')}>
-            <CartIcon onClick={() => {}} />
+            <CartIcon />
           </CartDrawer>
-          
-          <button className="px-5 py-2 border border-primary text-primary text-sm rounded-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 button-hover">
+
+          <button
+            onClick={() => scrollToSection('contact')}
+            className="px-5 py-2 border border-primary text-primary text-sm rounded-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 button-hover"
+          >
             Request Catalog
           </button>
         </div>

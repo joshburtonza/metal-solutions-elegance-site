@@ -14,8 +14,38 @@ export const OrderConfirmation: React.FC<OrderConfirmationProps> = ({ order }) =
   const navigate = useNavigate();
 
   const handleDownloadInvoice = () => {
-    // This would generate and download a PDF invoice
-    console.log('Download invoice for order:', order.orderNumber);
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+    const items = order.items.map(item =>
+      `<tr>
+        <td style="padding:8px;border-bottom:1px solid #eee">${item.product.name}</td>
+        <td style="padding:8px;border-bottom:1px solid #eee;text-align:center">${item.quantity}</td>
+        <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">R ${(item.product.price * item.quantity).toFixed(2)}</td>
+      </tr>`
+    ).join('');
+    printWindow.document.write(`
+      <!DOCTYPE html><html><head>
+      <title>Invoice ${order.orderNumber}</title>
+      <style>body{font-family:Arial,sans-serif;padding:40px;color:#222}h1{margin:0}table{width:100%;border-collapse:collapse}th{background:#222;color:#fff;padding:10px;text-align:left}.total{font-size:1.2em;font-weight:bold}</style>
+      </head><body>
+      <h1>Luxe Living — Invoice</h1>
+      <p><strong>Order:</strong> ${order.orderNumber} &nbsp;&nbsp; <strong>Date:</strong> ${new Date(order.createdAt).toLocaleDateString('en-ZA')}</p>
+      <p><strong>Customer:</strong> ${order.customer.firstName} ${order.customer.lastName} &nbsp;&nbsp; ${order.customer.email}</p>
+      <br/>
+      <table><thead><tr><th>Item</th><th style="text-align:center">Qty</th><th style="text-align:right">Amount</th></tr></thead>
+      <tbody>${items}</tbody></table>
+      <br/>
+      <p>Subtotal: R ${order.subtotal.toFixed(2)}</p>
+      <p>VAT (15%): R ${order.vat.toFixed(2)}</p>
+      <p>Delivery: ${order.deliveryFee === 0 ? 'Free' : 'R ' + order.deliveryFee.toFixed(2)}</p>
+      <p class="total">Total: R ${order.total.toFixed(2)}</p>
+      <br/><p style="color:#888;font-size:0.85em">RT Metal Solutions · info@rtmetalsolutions.com · +27 76 514 6465</p>
+      </body></html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
   };
 
   const handleContinueShopping = () => {

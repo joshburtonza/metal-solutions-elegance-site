@@ -19,6 +19,7 @@ import {
   XCircle
 } from 'lucide-react';
 import { OrderTracker } from '@/components/orders/OrderTracker';
+import { toast } from 'sonner';
 
 interface AccountDashboardProps {
   onEditProfile?: () => void;
@@ -272,21 +273,21 @@ export const AccountDashboard: React.FC<AccountDashboardProps> = ({ onEditProfil
                     <p className="font-medium">Email Notifications</p>
                     <p className="text-sm text-muted-foreground">Receive updates about your orders</p>
                   </div>
-                  <Button variant="outline" size="sm">Configure</Button>
+                  <Button variant="outline" size="sm" onClick={() => toast.info('Email notification settings coming soon')}>Configure</Button>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">SMS Notifications</p>
                     <p className="text-sm text-muted-foreground">Get SMS updates for delivery</p>
                   </div>
-                  <Button variant="outline" size="sm">Configure</Button>
+                  <Button variant="outline" size="sm" onClick={() => toast.info('SMS notification settings coming soon')}>Configure</Button>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Privacy Settings</p>
                     <p className="text-sm text-muted-foreground">Manage your data and privacy</p>
                   </div>
-                  <Button variant="outline" size="sm">Manage</Button>
+                  <Button variant="outline" size="sm" onClick={() => toast.info('Privacy settings coming soon')}>Manage</Button>
                 </div>
               </CardContent>
             </Card>
