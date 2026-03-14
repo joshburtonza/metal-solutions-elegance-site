@@ -12,7 +12,7 @@ import { QuickReorderButton } from "../components/quick-order/QuickReorderButton
 import { products } from "../data/enhancedProducts";
 import { useAuth } from "../contexts/AuthContext";
 import { ScrollReveal } from "../components/animations/ScrollReveal";
-import WeldingTransition from "../components/animations/WeldingTransition";
+import MetalPlateReveal from "../components/animations/MetalPlateReveal";
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
@@ -47,17 +47,16 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       
-      <WeldingTransition direction="left-to-right" intensity={1.2} />
+      <MetalPlateReveal origin="top" angle={10}>
+        <CollectionsSection />
+      </MetalPlateReveal>
       
-      <CollectionsSection />
-      
-      <WeldingTransition direction="right-to-left" intensity={1} />
-      
-      <ProductsSection />
+      <MetalPlateReveal origin="left" angle={6}>
+        <ProductsSection />
+      </MetalPlateReveal>
       
       {isAuthenticated && (
-        <>
-          <WeldingTransition direction="center-out" intensity={0.8} />
+        <MetalPlateReveal origin="right" angle={8}>
           <section className="section-padding bg-card/20">
             <div className="container text-center">
               <ScrollReveal animation="fadeUp">
@@ -67,29 +66,30 @@ const Index = () => {
               </ScrollReveal>
             </div>
           </section>
-        </>
+        </MetalPlateReveal>
       )}
       
-      <WeldingTransition direction="left-to-right" intensity={1.1} />
+      <MetalPlateReveal origin="bottom" angle={7}>
+        <section className="section-padding bg-background relative aurora-bg">
+          <div className="container relative z-10">
+            <ScrollReveal animation="fadeUp">
+              <div className="text-center mb-8">
+                <span className="mono text-xs tracking-[0.3em] text-primary/40 mb-4 block">// FOR YOU</span>
+              </div>
+              <ProductRecommendations products={products} maxItems={4} />
+            </ScrollReveal>
+          </div>
+        </section>
+      </MetalPlateReveal>
       
-      <section className="section-padding bg-background relative aurora-bg">
-        <div className="container relative z-10">
-          <ScrollReveal animation="fadeUp">
-            <div className="text-center mb-8">
-              <span className="mono text-xs tracking-[0.3em] text-primary/40 mb-4 block">// FOR YOU</span>
-            </div>
-            <ProductRecommendations products={products} maxItems={4} />
-          </ScrollReveal>
-        </div>
-      </section>
+      <MetalPlateReveal origin="top" angle={9}>
+        <TestimonialsSection />
+      </MetalPlateReveal>
       
-      <WeldingTransition direction="right-to-left" intensity={1} />
-      
-      <TestimonialsSection />
-      
-      <WeldingTransition direction="center-out" intensity={1.3} />
-      
-      <ContactSection />
+      <MetalPlateReveal origin="left" angle={6}>
+        <ContactSection />
+      </MetalPlateReveal>
+
       <Footer />
     </div>
   );
