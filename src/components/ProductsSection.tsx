@@ -1,18 +1,13 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { Search } from "lucide-react";
 import { products } from "@/data/enhancedProducts";
 import { ProductCard } from "@/components/products/ProductCard";
 import { SearchBar } from "@/components/search/SearchBar";
 import { AdvancedFilters } from "@/components/filters/AdvancedFilters";
 import { useProductSearch } from "@/hooks/useProductSearch";
+import { ScrollReveal, StaggerChildren, StaggerItem } from "@/components/animations/ScrollReveal";
 
-const productCategories = [
-  "BELLA", "DEMI", "LUNA", "AMARA", "JAX", 
-  "BISHOP", "NIKITA", "FLOWER", "ZANI", "HOTEL", 
-  "LANA", "TILLA", "SWING BENCH"
-];
-
+const ProductScene3D = lazy(() => import('@/components/3d/ProductScene').then(m => ({ default: m.ProductScene3D })));
 
 const ProductsSection = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -27,87 +22,84 @@ const ProductsSection = () => {
     totalCount
   } = useProductSearch(products);
 
-  // Listen for collection filter events from CollectionsSection
   useEffect(() => {
     const handleCategoryFilter = (event: CustomEvent) => {
       const { category } = event.detail;
       setSelectedCategory(category);
-      // Update filters when category is selected from collections
-      setFilters(prev => ({
-        ...prev,
-        categories: [category]
-      }));
+      setFilters(prev => ({ ...prev, categories: [category] }));
     };
 
     window.addEventListener('filterByCategory', handleCategoryFilter as EventListener);
-    
-    return () => {
-      window.removeEventListener('filterByCategory', handleCategoryFilter as EventListener);
-    };
+    return () => window.removeEventListener('filterByCategory', handleCategoryFilter as EventListener);
   }, [setFilters]);
 
-  // Use the filtered products from the search hook
   const displayProducts = filteredProducts;
 
   return (
-    <section id="products" className="section-padding bg-charcoal-dark">
-      <div className="container">
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Product <span className="text-gradient">Catalog</span>
-          </h2>
-          <p className="text-white/70 max-w-2xl mb-8">
-            Explore our extensive range of contemporary steel furniture and décor items, crafted with precision and attention to detail.
-          </p>
+    <section id="products" className="section-padding bg-card relative grid-overlay">
+      <div className="container relative z-10">
+        {/* 3D separator */}
+        <Suspense fallback={null}>
+          <div className="mb-8">
+            <ProductScene3D variant="frame" />
+          </div>
+        </Suspense>
 
-          {/* Search and Filters */}
-          <div className="space-y-6">
-            {/* Search Bar */}
-            <SearchBar
-              onSearch={setSearchQuery}
-              placeholder="Search by name, category, materials..."
-              className="max-w-md"
-            />
+        <ScrollReveal animation="fadeUp">
+          <div className="mb-16">
+            <span className="mono text-xs tracking-[0.3em] text-primary mb-4 block">// CATALOG</span>
+            <h2 className="text-5xl md:text-7xl font-display font-black mb-4">
+              PRODUCT<br />
+              <span className="text-gradient">ARSENAL</span>
+            </h2>
+            <p className="text-muted-foreground max-w-lg mb-8">
+              Industrial precision. Every piece forged with intent.
+            </p>
 
-            {/* Advanced Filters */}
-            <AdvancedFilters
-              onFiltersChange={setFilters}
-              availableCategories={filterOptions.categories}
-              availableMaterials={filterOptions.materials}
-              priceRange={filterOptions.priceRange}
-            />
+            <div className="space-y-6">
+              <SearchBar
+                onSearch={setSearchQuery}
+                placeholder="Search by name, category, materials..."
+                className="max-w-md"
+              />
 
-            {/* Results Summary */}
-            <div className="flex items-center justify-between">
-              <p className="text-white/70">
-                Showing {resultCount} of {totalCount} products
-                {searchQuery && (
-                  <span> for "{searchQuery}"</span>
-                )}
-              </p>
+              <AdvancedFilters
+                onFiltersChange={setFilters}
+                availableCategories={filterOptions.categories}
+                availableMaterials={filterOptions.materials}
+                priceRange={filterOptions.priceRange}
+              />
+
+              <div className="flex items-center justify-between border-t border-border pt-4">
+                <p className="mono text-sm text-muted-foreground">
+                  [{resultCount}/{totalCount}] RESULTS
+                  {searchQuery && <span> → "{searchQuery}"</span>}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1" staggerDelay={0.1}>
           {displayProducts.length > 0 ? (
             displayProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <StaggerItem key={product.id}>
+                <ProductCard product={product} />
+              </StaggerItem>
             ))
           ) : (
-            <div className="col-span-full text-center py-12">
+            <div className="col-span-full text-center py-20">
               <Search className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-medium mb-2">No products found</h3>
-              <p className="text-muted-foreground">
-                {searchQuery 
-                  ? `Try adjusting your search "${searchQuery}" or filters to find what you're looking for.`
-                  : "Try adjusting your filters to find what you're looking for."
+              <h3 className="text-xl font-display font-bold mb-2">NO RESULTS</h3>
+              <p className="text-muted-foreground mono text-sm">
+                {searchQuery
+                  ? `Adjust search "${searchQuery}" or filters.`
+                  : "Adjust filters to find products."
                 }
               </p>
             </div>
           )}
-        </div>
+        </StaggerChildren>
       </div>
     </section>
   );
