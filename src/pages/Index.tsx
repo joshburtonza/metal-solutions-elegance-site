@@ -34,7 +34,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background snap-y snap-mandatory overflow-y-auto h-screen">
+    <div className="min-h-screen bg-background overflow-y-auto scroll-smooth">
       {/* Gold scroll progress bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[2px] z-[100] origin-left"
