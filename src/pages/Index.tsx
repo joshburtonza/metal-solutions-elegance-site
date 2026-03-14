@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
@@ -13,8 +13,11 @@ import { products } from "../data/enhancedProducts";
 import { useAuth } from "../contexts/AuthContext";
 import { ScrollReveal } from "../components/animations/ScrollReveal";
 import SnapSection from "../components/animations/SnapSection";
+import CinematicLoader from "../components/animations/CinematicLoader";
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const handleLoadComplete = useCallback(() => setIsLoading(false), []);
   const { isAuthenticated } = useAuth();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
@@ -35,6 +38,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background overflow-y-auto scroll-smooth">
+      {isLoading && <CinematicLoader onComplete={handleLoadComplete} />}
       {/* Gold scroll progress bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[2px] z-[100] origin-left"
