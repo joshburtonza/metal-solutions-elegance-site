@@ -90,126 +90,66 @@ const triggerScreenShake = () => {
 };
 
 // Animation variants per effect type
-const getVariants = (effect: EntryEffect) => {
+const getVariants = (effect: EntryEffect): { hidden: Record<string, any>; visible: Record<string, any> } => {
   switch (effect) {
     case 'flip-up':
       return {
         hidden: {
-          rotateX: 90,
-          y: 200,
-          scale: 0.7,
-          opacity: 0,
+          rotateX: 90, y: 200, scale: 0.7, opacity: 0,
           filter: 'brightness(2) blur(4px)',
         },
         visible: {
-          rotateX: 0,
-          y: 0,
-          scale: 1,
-          opacity: 1,
+          rotateX: 0, y: 0, scale: 1, opacity: 1,
           filter: 'brightness(1) blur(0px)',
-          transition: {
-            type: 'spring',
-            stiffness: 60,
-            damping: 15,
-            mass: 1.2,
-            duration: 1,
-          },
+          transition: { type: 'spring' as const, stiffness: 60, damping: 15, mass: 1.2 },
         },
       };
     case 'flip-left':
       return {
         hidden: {
-          rotateY: -80,
-          x: -300,
-          scale: 0.65,
-          opacity: 0,
+          rotateY: -80, x: -300, scale: 0.65, opacity: 0,
           filter: 'brightness(1.8) blur(3px)',
         },
         visible: {
-          rotateY: 0,
-          x: 0,
-          scale: 1,
-          opacity: 1,
+          rotateY: 0, x: 0, scale: 1, opacity: 1,
           filter: 'brightness(1) blur(0px)',
-          transition: {
-            type: 'spring',
-            stiffness: 55,
-            damping: 14,
-            mass: 1.3,
-            duration: 1.1,
-          },
+          transition: { type: 'spring' as const, stiffness: 55, damping: 14, mass: 1.3 },
         },
       };
     case 'flip-right':
       return {
         hidden: {
-          rotateY: 80,
-          x: 300,
-          scale: 0.65,
-          opacity: 0,
+          rotateY: 80, x: 300, scale: 0.65, opacity: 0,
           filter: 'brightness(1.8) blur(3px)',
         },
         visible: {
-          rotateY: 0,
-          x: 0,
-          scale: 1,
-          opacity: 1,
+          rotateY: 0, x: 0, scale: 1, opacity: 1,
           filter: 'brightness(1) blur(0px)',
-          transition: {
-            type: 'spring',
-            stiffness: 55,
-            damping: 14,
-            mass: 1.3,
-            duration: 1.1,
-          },
+          transition: { type: 'spring' as const, stiffness: 55, damping: 14, mass: 1.3 },
         },
       };
     case 'zoom-rotate':
       return {
         hidden: {
-          rotateX: 50,
-          rotateY: 30,
-          scale: 0.3,
-          opacity: 0,
+          rotateX: 50, rotateY: 30, scale: 0.3, opacity: 0,
           filter: 'brightness(2.5) blur(6px)',
         },
         visible: {
-          rotateX: 0,
-          rotateY: 0,
-          scale: 1,
-          opacity: 1,
+          rotateX: 0, rotateY: 0, scale: 1, opacity: 1,
           filter: 'brightness(1) blur(0px)',
-          transition: {
-            type: 'spring',
-            stiffness: 50,
-            damping: 12,
-            mass: 1.5,
-            duration: 1.2,
-          },
+          transition: { type: 'spring' as const, stiffness: 50, damping: 12, mass: 1.5 },
         },
       };
     case 'slam-down':
       return {
         hidden: {
-          rotateX: -60,
-          y: -400,
-          scale: 1.3,
-          opacity: 0,
+          rotateX: -60, y: -400, scale: 1.3, opacity: 0,
           filter: 'brightness(2) blur(2px)',
         },
         visible: {
-          rotateX: 0,
-          y: 0,
-          scale: 1,
-          opacity: 1,
+          rotateX: 0, y: 0, scale: 1, opacity: 1,
           filter: 'brightness(1) blur(0px)',
-          transition: {
-            type: 'spring',
-            stiffness: 80,
-            damping: 12,
-            mass: 1.8,
-            duration: 0.9,
-          },
+          transition: { type: 'spring' as const, stiffness: 80, damping: 12, mass: 1.8 },
         },
       };
     default:
