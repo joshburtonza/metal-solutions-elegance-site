@@ -37,21 +37,23 @@ const Index = () => {
       <ProductsSection />
       
       {isAuthenticated && (
-        <section className="section-padding bg-card">
+        <section className="section-padding bg-card/30">
           <div className="container text-center">
             <ScrollReveal animation="fadeUp">
-              <span className="mono text-xs tracking-[0.3em] text-primary mb-4 block">// QUICK ACTIONS</span>
-              <h2 className="text-3xl font-display font-black mb-6">REORDER</h2>
+              <span className="mono text-xs tracking-[0.3em] text-primary/60 mb-4 block">quick actions</span>
+              <h2 className="text-3xl font-display font-bold mb-6">Reorder</h2>
               <QuickReorderButton />
             </ScrollReveal>
           </div>
         </section>
       )}
       
-      <section className="section-padding bg-background grid-overlay relative">
+      <section className="section-padding bg-background relative mesh-bg">
         <div className="container relative z-10">
           <ScrollReveal animation="fadeUp">
-            <span className="mono text-xs tracking-[0.3em] text-primary mb-4 block">// FOR YOU</span>
+            <div className="text-center mb-8">
+              <span className="mono text-xs tracking-[0.3em] text-accent/60 mb-4 block">for you</span>
+            </div>
             <ProductRecommendations products={products} maxItems={4} />
           </ScrollReveal>
         </div>

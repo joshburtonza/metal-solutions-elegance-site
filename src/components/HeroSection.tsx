@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import Slideshow from "@/components/ui/slideshow";
 
-const IndustrialScene = lazy(() => import('@/components/3d/IndustrialScene'));
+const FuturisticScene = lazy(() => import('@/components/3d/FuturisticScene'));
 
 const heroSlides = [
   {
@@ -29,20 +29,26 @@ const HeroSection = () => {
       
       {/* 3D overlay scene */}
       <Suspense fallback={null}>
-        <IndustrialScene className="pointer-events-none opacity-40 mix-blend-screen" />
+        <FuturisticScene className="pointer-events-none opacity-50 mix-blend-screen" />
       </Suspense>
 
-      {/* Industrial grid overlay */}
-      <div className="absolute inset-0 grid-overlay pointer-events-none z-[5]" />
+      {/* Soft glow overlay */}
+      <div className="absolute inset-0 glow-overlay pointer-events-none z-[5]" />
       
-      {/* Bottom indicator */}
+      {/* Bottom scroll indicator */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <span className="mono text-xs tracking-[0.3em] text-primary/60 uppercase">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-primary/60 to-transparent" />
+        <span className="mono text-xs tracking-[0.3em] text-foreground/30 uppercase">Explore</span>
+        <div className="w-5 h-8 rounded-full border border-foreground/20 flex justify-center pt-1.5">
+          <motion.div 
+            className="w-1 h-2 rounded-full bg-primary/60"
+            animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
       </motion.div>
     </section>
   );

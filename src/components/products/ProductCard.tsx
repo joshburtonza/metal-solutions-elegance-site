@@ -38,47 +38,58 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   return (
     <>
       <motion.div
-        className={`relative overflow-hidden bg-card border-2 border-border group hover:border-primary/40 transition-colors duration-500 ${className || ''}`}
+        className={`relative overflow-hidden glass-card group transition-all duration-500 ${className || ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        whileHover={{ y: -4 }}
-        transition={{ duration: 0.3 }}
+        whileHover={{ y: -6 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
+        {/* Glow effect on hover */}
+        <motion.div
+          className="absolute inset-0 rounded-2xl pointer-events-none z-10"
+          animate={{
+            boxShadow: isHovered
+              ? '0 0 40px hsl(250 90% 72% / 0.1), 0 20px 60px hsl(0 0% 0% / 0.3)'
+              : '0 0 0px transparent, 0 8px 32px hsl(0 0% 0% / 0.3)'
+          }}
+          transition={{ duration: 0.5 }}
+        />
+
         {/* Product Image */}
         <div className="relative">
-          <div className="aspect-[4/3] overflow-hidden cursor-pointer" onClick={() => setShowDetail(true)}>
+          <div className="aspect-[4/3] overflow-hidden cursor-pointer rounded-t-2xl" onClick={() => setShowDetail(true)}>
             <motion.img
               src={product.image}
               alt={product.name}
               className="w-full h-full object-cover"
-              animate={{ scale: isHovered ? 1.08 : 1, filter: isHovered ? 'saturate(0.5)' : 'saturate(1)' }}
+              animate={{ scale: isHovered ? 1.08 : 1 }}
               transition={{ duration: 0.6 }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
           </div>
 
           {/* Badges */}
-          <div className="absolute top-3 left-3 flex flex-col gap-1">
+          <div className="absolute top-3 left-3 flex flex-col gap-1.5">
             {product.isNew && (
-              <span className="px-2 py-1 bg-foreground text-background mono text-[10px] tracking-wider font-bold">NEW</span>
+              <span className="px-2.5 py-1 bg-primary text-primary-foreground rounded-full text-[10px] tracking-wider font-bold">NEW</span>
             )}
             {product.isFeatured && (
-              <span className="px-2 py-1 bg-primary text-primary-foreground mono text-[10px] tracking-wider font-bold">FEATURED</span>
+              <span className="px-2.5 py-1 bg-accent text-accent-foreground rounded-full text-[10px] tracking-wider font-bold">FEATURED</span>
             )}
             {product.originalPrice && (
-              <span className="px-2 py-1 bg-destructive text-destructive-foreground mono text-[10px] tracking-wider font-bold">SALE</span>
+              <span className="px-2.5 py-1 bg-destructive text-destructive-foreground rounded-full text-[10px] tracking-wider font-bold">SALE</span>
             )}
           </div>
 
           {/* Quick Actions */}
           <motion.div
-            className="absolute top-3 right-3 flex flex-col gap-1"
+            className="absolute top-3 right-3 flex flex-col gap-1.5 z-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
           >
-            <WishlistButton product={product} size="sm" variant="ghost" className="bg-card/90 hover:bg-card" />
-            <CompareButton product={product} size="sm" variant="ghost" className="bg-card/90 hover:bg-card" />
-            <Button variant="secondary" size="sm" onClick={() => setShowDetail(true)} className="bg-card/90 hover:bg-card">
+            <WishlistButton product={product} size="sm" variant="ghost" className="bg-card/80 backdrop-blur-lg rounded-full hover:bg-card" />
+            <CompareButton product={product} size="sm" variant="ghost" className="bg-card/80 backdrop-blur-lg rounded-full hover:bg-card" />
+            <Button variant="secondary" size="sm" onClick={() => setShowDetail(true)} className="bg-card/80 backdrop-blur-lg rounded-full hover:bg-card">
               <Eye className="h-4 w-4" />
             </Button>
           </motion.div>
@@ -86,11 +97,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           {/* Stock badge */}
           <div className="absolute bottom-3 left-3">
             {isOutOfStock ? (
-              <span className="px-2 py-1 bg-destructive text-destructive-foreground mono text-[10px] tracking-wider font-bold flex items-center gap-1">
+              <span className="px-2.5 py-1 bg-destructive/90 backdrop-blur text-destructive-foreground rounded-full text-[10px] tracking-wider font-bold flex items-center gap-1">
                 <Package className="h-3 w-3" /> OUT OF STOCK
               </span>
             ) : isLowStock ? (
-              <span className="px-2 py-1 bg-primary text-primary-foreground mono text-[10px] tracking-wider font-bold flex items-center gap-1">
+              <span className="px-2.5 py-1 bg-primary/90 backdrop-blur text-primary-foreground rounded-full text-[10px] tracking-wider font-bold flex items-center gap-1">
                 <Package className="h-3 w-3" /> {product.stock} LEFT
               </span>
             ) : null}
@@ -98,12 +109,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
         </div>
 
         {/* Content */}
-        <div className="p-5 space-y-3">
+        <div className="p-5 space-y-3 relative z-10">
           <div>
-            <span className="mono text-[10px] tracking-widest text-primary/60 block mb-1">
-              {product.category} — {product.itemCode}
+            <span className="mono text-[10px] tracking-widest text-primary/40 block mb-1">
+              {product.category} · {product.itemCode}
             </span>
-            <h3 className="font-display font-bold text-lg text-foreground tracking-tight">{product.name}</h3>
+            <h3 className="font-display font-bold text-lg text-foreground">{product.name}</h3>
           </div>
 
           {/* Rating */}
@@ -116,11 +127,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
                 />
               ))}
             </div>
-            <span className="mono text-xs text-muted-foreground">{averageRating} ({reviewCount})</span>
+            <span className="text-xs text-muted-foreground">{averageRating} ({reviewCount})</span>
           </div>
 
           <div className="space-y-1">
-            <p className="text-sm text-foreground/80">{product.materials}</p>
+            <p className="text-sm text-foreground/60">{product.materials}</p>
             <p className="mono text-xs text-muted-foreground">{product.dimensions}</p>
           </div>
 
@@ -128,19 +139,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           <div className="flex items-end gap-2">
             <span className="font-display font-bold text-xl text-primary">{formatCurrency(product.price)}</span>
             {product.originalPrice && (
-              <span className="mono text-sm text-muted-foreground line-through">{formatCurrency(product.originalPrice)}</span>
+              <span className="text-sm text-muted-foreground line-through">{formatCurrency(product.originalPrice)}</span>
             )}
           </div>
 
           {/* Finish selector */}
           {product.finishOptions && product.finishOptions.length > 1 && (
             <Select value={selectedFinish} onValueChange={setSelectedFinish}>
-              <SelectTrigger className="bg-background border-border mono text-xs hover:border-primary transition-colors">
+              <SelectTrigger className="bg-background/50 border-border/50 text-sm rounded-xl hover:border-primary/30 transition-colors">
                 <SelectValue placeholder="Select finish" />
               </SelectTrigger>
-              <SelectContent className="bg-card border-border">
+              <SelectContent className="bg-card border-border/50 rounded-xl">
                 {product.finishOptions.map((finish) => (
-                  <SelectItem key={finish} value={finish} className="mono text-xs">{finish}</SelectItem>
+                  <SelectItem key={finish} value={finish} className="text-sm">{finish}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -148,32 +159,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
 
           <Button
             onClick={handleAddToCart}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-display font-bold text-sm tracking-wider transition-all hover:shadow-[0_0_30px_hsl(46_75%_55%/0.4)]"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-display font-semibold text-sm rounded-xl transition-all hover:shadow-[0_0_30px_hsl(250_90%_72%/0.3)]"
             disabled={isOutOfStock}
           >
-            {isOutOfStock ? 'OUT OF STOCK' : (
+            {isOutOfStock ? 'Out of Stock' : (
               <>
                 <ShoppingCart className="mr-2 h-4 w-4" />
-                ADD TO CART
+                Add to Cart
               </>
             )}
           </Button>
 
           {product.deliveryTime && (
             <p className="mono text-[10px] text-muted-foreground text-center tracking-wider">
-              DELIVERY: {product.deliveryTime.toUpperCase()}
+              Delivery: {product.deliveryTime}
             </p>
           )}
         </div>
-
-        {/* Gold accent line */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
-          style={{ transformOrigin: 'left' }}
-        />
       </motion.div>
 
       <ProductDetailModal

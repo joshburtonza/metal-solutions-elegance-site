@@ -3,30 +3,30 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
-const ProductScene3D = lazy(() => import('@/components/3d/ProductScene').then(m => ({ default: m.ProductScene3D })));
+const SectionScene3D = lazy(() => import('@/components/3d/SectionScene').then(m => ({ default: m.SectionScene3D })));
 
 const testimonials = [
   {
     text: "Luxe Living transformed our hotel lobby with their HOTEL collection. The precision craftsmanship and attention to detail is exceptional.",
-    author: "JAMES WILSON",
+    author: "James Wilson",
     title: "Design Director, Grand Meridian Hotels",
     image: "https://images.unsplash.com/photo-1611689102192-1f6e0e52df0a?q=80&w=1965"
   },
   {
     text: "The BELLA coffee table is a statement piece. Incredibly well-made and draws compliments from everyone who visits.",
-    author: "SOPHIA MARTINEZ",
+    author: "Sophia Martinez",
     title: "Interior Design Enthusiast",
     image: "https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=2070"
   },
   {
     text: "We furnished our entire office with the NIKITA collection. The durability and elegance is unmatched in the industry.",
-    author: "MICHAEL CHANG",
+    author: "Michael Chang",
     title: "CEO, Modern Spaces Inc.",
     image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2069"
   },
   {
     text: "The SWING BENCH has become the centerpiece of our patio. Luxe Living delivers luxury and quality without compromise.",
-    author: "EMILY JOHNSON",
+    author: "Emily Johnson",
     title: "Landscape Architect",
     image: "https://images.unsplash.com/photo-1615529328331-f8917597711f?q=80&w=2070"
   }
@@ -51,54 +51,53 @@ const TestimonialsSection = () => {
   }, []);
 
   return (
-    <section id="testimonials" className="section-padding bg-background relative noise-overlay">
+    <section id="testimonials" className="section-padding bg-background relative mesh-bg">
       <div className="container relative z-10">
-        <ScrollReveal animation="fadeUp">
-          <span className="mono text-xs tracking-[0.3em] text-primary mb-4 block">// TESTIMONIALS</span>
-          <h2 className="text-5xl md:text-7xl font-display font-black mb-16">
-            VOICES OF<br />
-            <span className="text-gradient">STEEL</span>
-          </h2>
-        </ScrollReveal>
-
         {/* 3D Element */}
         <Suspense fallback={null}>
-          <div className="mb-12">
-            <ProductScene3D variant="sphere" />
-          </div>
+          <SectionScene3D variant="testimonials" />
         </Suspense>
+
+        <ScrollReveal animation="fadeUp">
+          <div className="text-center mb-16">
+            <span className="mono text-xs tracking-[0.3em] text-primary/60 mb-4 block">what they say</span>
+            <h2 className="text-5xl md:text-7xl font-display font-bold">
+              Client <span className="text-gradient-warm">Stories</span>
+            </h2>
+          </div>
+        </ScrollReveal>
 
         {/* Testimonial */}
         <ScrollReveal animation="scaleUp">
           <div className="relative max-w-5xl mx-auto mb-20">
-            <div className="border-2 border-border bg-card/50 backdrop-blur-sm overflow-hidden">
+            <div className="glass-card overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={current}
-                  initial={{ opacity: 0, x: 100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -100 }}
+                  initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0)' }}
+                  exit={{ opacity: 0, y: -40, filter: 'blur(10px)' }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <div className="flex flex-col md:flex-row min-h-[350px]">
-                    <div className="hidden md:block md:w-2/5 relative overflow-hidden">
+                    <div className="hidden md:block md:w-2/5 relative overflow-hidden rounded-l-2xl">
                       <img
                         src={testimonials[current].image}
                         alt={testimonials[current].author}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/80" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/60" />
                     </div>
                     <div className="w-full md:w-3/5 p-10 md:p-14 flex flex-col justify-center">
-                      <div className="text-6xl text-primary/20 font-display leading-none mb-4">"</div>
-                      <blockquote className="text-lg md:text-xl mb-8 text-foreground/90 leading-relaxed">
+                      <div className="text-6xl text-primary/15 font-display leading-none mb-4">"</div>
+                      <blockquote className="text-lg md:text-xl mb-8 text-foreground/80 leading-relaxed">
                         {testimonials[current].text}
                       </blockquote>
-                      <div className="border-t border-border pt-4">
-                        <p className="font-display font-bold text-primary text-sm tracking-wider">
+                      <div className="border-t border-border/50 pt-4">
+                        <p className="font-display font-bold text-primary text-sm">
                           {testimonials[current].author}
                         </p>
-                        <p className="mono text-xs text-muted-foreground mt-1">
+                        <p className="text-sm text-muted-foreground mt-1">
                           {testimonials[current].title}
                         </p>
                       </div>
@@ -106,36 +105,33 @@ const TestimonialsSection = () => {
                   </div>
                 </motion.div>
               </AnimatePresence>
-
-              {/* Gold accent line at bottom */}
-              <div className="h-[2px] bg-primary" />
             </div>
 
             {/* Controls */}
-            <div className="flex items-center justify-between mt-6">
+            <div className="flex items-center justify-between mt-8">
               <div className="flex gap-2">
                 {testimonials.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setCurrent(i)}
-                    className={`h-1 transition-all duration-500 ${
-                      current === i ? 'w-12 bg-primary' : 'w-4 bg-border'
+                    className={`h-1.5 rounded-full transition-all duration-500 ${
+                      current === i ? 'w-10 bg-primary' : 'w-4 bg-border'
                     }`}
                   />
                 ))}
               </div>
-              <div className="flex gap-1">
+              <div className="flex gap-2">
                 <button
                   onClick={() => setCurrent((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
-                  className="w-12 h-12 border-2 border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all"
+                  className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all duration-300"
                 >
-                  <ChevronLeft className="h-5 w-5" />
+                  <ChevronLeft className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => setCurrent((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
-                  className="w-12 h-12 border-2 border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all"
+                  className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all duration-300"
                 >
-                  <ChevronRight className="h-5 w-5" />
+                  <ChevronRight className="h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -145,32 +141,27 @@ const TestimonialsSection = () => {
         {/* Installations Gallery */}
         <ScrollReveal animation="slideUp">
           <div className="mt-16">
-            <span className="mono text-xs tracking-[0.3em] text-primary mb-6 block">// INSTALLATIONS</span>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1">
+            <div className="text-center mb-8">
+              <span className="mono text-xs tracking-[0.3em] text-accent/60 block">installations</span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {installations.map((inst, index) => (
                 <motion.div
                   key={index}
-                  className="group relative overflow-hidden cursor-pointer"
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.3 }}
+                  className="group relative overflow-hidden cursor-pointer rounded-xl"
+                  whileHover={{ y: -6, scale: 1.03 }}
+                  transition={{ duration: 0.4 }}
                 >
-                  <div className="aspect-square">
+                  <div className="aspect-square rounded-xl overflow-hidden">
                     <img
                       src={inst.image}
                       alt={inst.location}
-                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:saturate-0"
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <p className="mono text-xs text-primary tracking-wider">{inst.location}</p>
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <p className="text-sm text-foreground/80 font-medium">{inst.location}</p>
                   </div>
-                  {/* Gold line on hover */}
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
                 </motion.div>
               ))}
             </div>
