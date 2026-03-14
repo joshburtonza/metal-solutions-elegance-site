@@ -120,7 +120,7 @@ export function SplitText({
 
   const springTransition = animation === 'elastic' 
     ? { type: 'spring' as const, damping: 12, stiffness: 200 }
-    : { duration: 0.6, ease: [0.16, 1, 0.3, 1] as number[] };
+    : { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
 
   const words = text.split(' ');
   let letterIndex = 0;
