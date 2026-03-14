@@ -39,6 +39,26 @@ const stats = [
   { value: 8, suffix: 'yr', label: 'Warranty' },
 ];
 
+// Parallax card with staggered speed per index
+const parallaxSpeeds = [0.15, 0.3, 0.2, 0.35];
+
+const ParallaxCard = ({ children, index }: { children: React.ReactNode; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+  const speed = parallaxSpeeds[index % parallaxSpeeds.length];
+  const y = useTransform(scrollYProgress, [0, 1], [60 * speed, -60 * speed]);
+  const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
+
+  return (
+    <motion.div ref={ref} style={{ y: smoothY }}>
+      {children}
+    </motion.div>
+  );
+};
+
 const CollectionsSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
