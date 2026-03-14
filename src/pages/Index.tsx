@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import CollectionsSection from "../components/CollectionsSection";
@@ -14,6 +15,8 @@ import { ScrollReveal } from "../components/animations/ScrollReveal";
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -31,16 +34,25 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Gold scroll progress bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] z-[100] origin-left"
+        style={{ 
+          scaleX,
+          background: 'linear-gradient(90deg, hsl(42 80% 55%), hsl(48 95% 70%), hsl(42 80% 55%))'
+        }}
+      />
+
       <Navbar />
       <HeroSection />
       <CollectionsSection />
       <ProductsSection />
       
       {isAuthenticated && (
-        <section className="section-padding bg-card/30">
+        <section className="section-padding bg-card/20">
           <div className="container text-center">
             <ScrollReveal animation="fadeUp">
-              <span className="mono text-xs tracking-[0.3em] text-primary/60 mb-4 block">quick actions</span>
+              <span className="mono text-xs tracking-[0.3em] text-primary/50 mb-4 block">// QUICK ACTIONS</span>
               <h2 className="text-3xl font-display font-bold mb-6">Reorder</h2>
               <QuickReorderButton />
             </ScrollReveal>
@@ -48,11 +60,11 @@ const Index = () => {
         </section>
       )}
       
-      <section className="section-padding bg-background relative mesh-bg">
+      <section className="section-padding bg-background relative aurora-bg">
         <div className="container relative z-10">
           <ScrollReveal animation="fadeUp">
             <div className="text-center mb-8">
-              <span className="mono text-xs tracking-[0.3em] text-accent/60 mb-4 block">for you</span>
+              <span className="mono text-xs tracking-[0.3em] text-primary/40 mb-4 block">// FOR YOU</span>
             </div>
             <ProductRecommendations products={products} maxItems={4} />
           </ScrollReveal>

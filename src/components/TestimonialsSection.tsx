@@ -1,7 +1,7 @@
 import { useState, useEffect, Suspense, lazy } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { ScrollReveal, SplitText, MagneticWrap, ParallaxSection } from "@/components/animations/ScrollReveal";
 
 const SectionScene3D = lazy(() => import('@/components/3d/SectionScene').then(m => ({ default: m.SectionScene3D })));
 
@@ -51,7 +51,7 @@ const TestimonialsSection = () => {
   }, []);
 
   return (
-    <section id="testimonials" className="section-padding bg-background relative mesh-bg">
+    <section id="testimonials" className="section-padding bg-background relative aurora-bg">
       <div className="container relative z-10">
         {/* 3D Element */}
         <Suspense fallback={null}>
@@ -60,9 +60,9 @@ const TestimonialsSection = () => {
 
         <ScrollReveal animation="fadeUp">
           <div className="text-center mb-16">
-            <span className="mono text-xs tracking-[0.3em] text-primary/60 mb-4 block">what they say</span>
+            <span className="mono text-xs tracking-[0.3em] text-primary/50 mb-4 block">// TESTIMONIALS</span>
             <h2 className="text-5xl md:text-7xl font-display font-bold">
-              Client <span className="text-gradient-warm">Stories</span>
+              Client <SplitText text="Stories" className="text-gradient-warm" animation="wave" staggerDelay={0.06} />
             </h2>
           </div>
         </ScrollReveal>
@@ -80,7 +80,7 @@ const TestimonialsSection = () => {
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <div className="flex flex-col md:flex-row min-h-[350px]">
-                    <div className="hidden md:block md:w-2/5 relative overflow-hidden rounded-l-2xl">
+                    <div className="hidden md:block md:w-2/5 relative overflow-hidden rounded-l-lg">
                       <img
                         src={testimonials[current].image}
                         alt={testimonials[current].author}
@@ -89,11 +89,11 @@ const TestimonialsSection = () => {
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/60" />
                     </div>
                     <div className="w-full md:w-3/5 p-10 md:p-14 flex flex-col justify-center">
-                      <div className="text-6xl text-primary/15 font-display leading-none mb-4">"</div>
+                      <div className="text-6xl text-primary/20 font-display leading-none mb-4">"</div>
                       <blockquote className="text-lg md:text-xl mb-8 text-foreground/80 leading-relaxed">
                         {testimonials[current].text}
                       </blockquote>
-                      <div className="border-t border-border/50 pt-4">
+                      <div className="border-t border-primary/10 pt-4">
                         <p className="font-display font-bold text-primary text-sm">
                           {testimonials[current].author}
                         </p>
@@ -121,18 +121,22 @@ const TestimonialsSection = () => {
                 ))}
               </div>
               <div className="flex gap-2">
-                <button
-                  onClick={() => setCurrent((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
-                  className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all duration-300"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setCurrent((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
-                  className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all duration-300"
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </button>
+                <MagneticWrap strength={0.4}>
+                  <button
+                    onClick={() => setCurrent((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
+                    className="w-10 h-10 rounded-lg border border-border/50 flex items-center justify-center hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all duration-300"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </button>
+                </MagneticWrap>
+                <MagneticWrap strength={0.4}>
+                  <button
+                    onClick={() => setCurrent((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
+                    className="w-10 h-10 rounded-lg border border-border/50 flex items-center justify-center hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all duration-300"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </MagneticWrap>
               </div>
             </div>
           </div>
@@ -142,27 +146,32 @@ const TestimonialsSection = () => {
         <ScrollReveal animation="slideUp">
           <div className="mt-16">
             <div className="text-center mb-8">
-              <span className="mono text-xs tracking-[0.3em] text-accent/60 block">installations</span>
+              <span className="mono text-xs tracking-[0.3em] text-primary/40 block">// INSTALLATIONS</span>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {installations.map((inst, index) => (
-                <motion.div
-                  key={index}
-                  className="group relative overflow-hidden cursor-pointer rounded-xl"
-                  whileHover={{ y: -6, scale: 1.03 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <div className="aspect-square rounded-xl overflow-hidden">
-                    <img
-                      src={inst.image}
-                      alt={inst.location}
-                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                <ParallaxSection key={index} speed={0.2 + index * 0.1}>
+                  <motion.div
+                    className="group relative overflow-hidden cursor-pointer rounded-lg"
+                    whileHover={{ y: -6, scale: 1.03 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <div className="aspect-square rounded-lg overflow-hidden">
+                      <img
+                        src={inst.image}
+                        alt={inst.location}
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <p className="text-sm text-foreground/80 font-medium">{inst.location}</p>
+                    </div>
+                    <motion.div
+                      className="absolute inset-0 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
+                      style={{ border: '1px solid hsl(42, 80%, 55%, 0.2)' }}
                     />
-                  </div>
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <p className="text-sm text-foreground/80 font-medium">{inst.location}</p>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </ParallaxSection>
               ))}
             </div>
           </div>

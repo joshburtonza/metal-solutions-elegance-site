@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useCompare } from "@/contexts/CompareContext";
 import { BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
+import { MagneticWrap } from "@/components/animations/ScrollReveal";
 import logo from "@/assets/luxe-logo.png";
 
 const Navbar = () => {
@@ -41,10 +42,12 @@ const Navbar = () => {
       )}
     >
       <div className="container flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <img src={logo} alt="Luxe Living" className="h-10 w-10 object-contain" />
-          <div className="font-display font-bold text-xl tracking-tight text-gradient">Luxe Living</div>
-        </div>
+        <MagneticWrap strength={0.2}>
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="Luxe Living" className="h-10 w-10 object-contain" />
+            <div className="font-display font-bold text-xl tracking-tight text-gradient">Luxe Living</div>
+          </div>
+        </MagneticWrap>
         
         <div className="hidden md:flex items-center gap-1">
           {[
@@ -53,13 +56,14 @@ const Navbar = () => {
             { name: 'Stories', id: 'testimonials' },
             { name: 'Contact', id: 'contact' }
           ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className="px-5 py-2 text-foreground/50 hover:text-primary transition-all duration-300 text-sm font-medium rounded-full hover:bg-primary/5"
-            >
-              {item.name}
-            </button>
+            <MagneticWrap key={item.id} strength={0.15}>
+              <button
+                onClick={() => scrollToSection(item.id)}
+                className="px-5 py-2 text-foreground/50 hover:text-primary transition-all duration-300 text-sm font-medium rounded-lg hover:bg-primary/5"
+              >
+                {item.name}
+              </button>
+            </MagneticWrap>
           ))}
         </div>
         
@@ -67,7 +71,7 @@ const Navbar = () => {
           <AuthButtons />
           
           <CompareDrawer>
-            <Button variant="ghost" size="sm" className="relative hover:text-primary rounded-full">
+            <Button variant="ghost" size="sm" className="relative hover:text-primary rounded-lg">
               <BarChart3 className="h-5 w-5" />
               {compareCount > 0 && (
                 <Badge
@@ -84,9 +88,11 @@ const Navbar = () => {
             <CartIcon onClick={() => {}} />
           </CartDrawer>
           
-          <button className="px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium hover:bg-primary/20 transition-all duration-300 hover:shadow-[0_0_20px_hsl(250_90%_72%/0.2)]">
-            Catalog
-          </button>
+          <MagneticWrap strength={0.3}>
+            <button className="px-5 py-2.5 rounded-lg bg-primary/10 border border-primary/20 text-primary text-sm font-medium hover:bg-primary/20 transition-all duration-300 hover:shadow-[0_0_20px_hsl(42_80%_55%/0.2)]">
+              Catalog
+            </button>
+          </MagneticWrap>
         </div>
       </div>
     </motion.nav>
