@@ -23,33 +23,37 @@ const SnapSection = memo(({ children, effect = 'reveal-up', className = '' }: Sn
     restDelta: 0.0001,
   });
 
-  // All transforms declared unconditionally (hooks rules)
-  const opacity = useTransform(smoothProgress, [0, 0.25, 0.85, 1], [0, 1, 1, 0.6]);
-  const yUp = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [120, 0, 0, -40]);
-  const yFade = useTransform(smoothProgress, [0, 0.3], [60, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0.92, 1, 1, 0.97]);
-  const scaleSubtle = useTransform(smoothProgress, [0, 0.25], [0.96, 1]);
-  const clipMask = useTransform(smoothProgress, [0, 0.35], [100, 0]);
-  const clipMaskPath = useTransform(clipMask, (v) => `inset(${v}% 0% 0% 0%)`);
-  const curtainInset = useTransform(smoothProgress, [0, 0.3], [50, 0]);
-  const curtainPath = useTransform(curtainInset, (v) => `inset(0% ${v}% 0% ${v}%)`);
-  const blur = useTransform(smoothProgress, [0, 0.2], [8, 0]);
-  const filterBlur = useTransform(blur, (v) => `blur(${v}px)`);
+  // Opacity: 0→1 in first 30%, hold, gentle fade at exit
+  const opacity = useTransform(smoothProgress, [0, 0.15, 0.75, 1], [0, 1, 1, 0.7]);
 
-  // Gold line transforms
-  const lineOpacity = useTransform(smoothProgress, [0.15, 0.35, 0.7], [0, 0.3, 0]);
-  const lineScaleX = useTransform(smoothProgress, [0.1, 0.4], [0, 1]);
+  // Y translations
+  const yUp = useTransform(smoothProgress, [0, 0.2, 0.7, 1], [80, 0, 0, -30]);
+  const yFade = useTransform(smoothProgress, [0, 0.2], [40, 0]);
+
+  // Scale
+  const scale = useTransform(smoothProgress, [0, 0.2, 0.75, 1], [0.94, 1, 1, 0.98]);
+  const scaleSubtle = useTransform(smoothProgress, [0, 0.2], [0.97, 1]);
+
+  // Clip-path reveals
+  const clipMask = useTransform(smoothProgress, [0, 0.25], [100, 0]);
+  const clipMaskPath = useTransform(clipMask, (v) => `inset(${v}% 0% 0% 0%)`);
+  const curtainInset = useTransform(smoothProgress, [0, 0.25], [50, 0]);
+  const curtainPath = useTransform(curtainInset, (v) => `inset(0% ${v}% 0% ${v}%)`);
+
+  // Gold line
+  const lineOpacity = useTransform(smoothProgress, [0.1, 0.25, 0.6], [0, 0.25, 0]);
+  const lineScaleX = useTransform(smoothProgress, [0.08, 0.3], [0, 1]);
 
   const getMotionStyle = (): MotionStyle => {
     switch (effect) {
       case 'reveal-up':
-        return { y: yUp, opacity, scale: scaleSubtle, filter: filterBlur };
+        return { y: yUp, opacity, scale: scaleSubtle };
       case 'reveal-scale':
-        return { scale, opacity, filter: filterBlur };
+        return { scale, opacity };
       case 'reveal-mask':
         return { clipPath: clipMaskPath };
       case 'reveal-fade':
-        return { y: yFade, opacity, filter: filterBlur };
+        return { y: yFade, opacity };
       case 'curtain':
         return { opacity, clipPath: curtainPath };
       default:
@@ -58,16 +62,8 @@ const SnapSection = memo(({ children, effect = 'reveal-up', className = '' }: Sn
   };
 
   return (
-    <div
-      ref={ref}
-      className={`relative overflow-hidden ${className}`}
-    >
-      <motion.div
-        style={{
-          ...getMotionStyle(),
-          willChange: 'transform, opacity, clip-path, filter',
-        }}
-      >
+    <div ref={ref} className={`relative ${className}`}>
+      <motion.div style={getMotionStyle()}>
         {children}
 
         {/* Ambient gold line */}
