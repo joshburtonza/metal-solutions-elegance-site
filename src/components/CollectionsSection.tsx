@@ -1,7 +1,7 @@
 import { useState, Suspense, lazy } from "react";
 import { ChevronRight } from "lucide-react";
 import { ScrollReveal, StaggerChildren, StaggerItem, TiltCard, SplitText, ParallaxSection, AnimatedCounter } from "@/components/animations/ScrollReveal";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 const SectionScene3D = lazy(() => import('@/components/3d/SectionScene').then(m => ({ default: m.SectionScene3D })));
 
