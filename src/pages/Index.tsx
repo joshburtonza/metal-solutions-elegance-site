@@ -46,20 +46,18 @@ const Index = () => {
 
       <Navbar />
       
-      <div className="snap-start min-h-screen">
-        <HeroSection />
-      </div>
+      <HeroSection />
       
-      <SnapSection effect="fade-rise">
+      <SnapSection effect="reveal-up">
         <CollectionsSection />
       </SnapSection>
       
-      <SnapSection effect="slide-left">
+      <SnapSection effect="reveal-mask">
         <ProductsSection />
       </SnapSection>
       
       {isAuthenticated && (
-        <SnapSection effect="scale-up">
+        <SnapSection effect="reveal-scale">
           <section className="section-padding bg-card/20 min-h-screen flex items-center">
             <div className="container text-center">
               <ScrollReveal animation="fadeUp">
@@ -85,17 +83,15 @@ const Index = () => {
         </section>
       </SnapSection>
       
-      <SnapSection effect="fade-rise">
+      <SnapSection effect="reveal-fade">
         <TestimonialsSection />
       </SnapSection>
       
-      <SnapSection effect="slide-right">
+      <SnapSection effect="reveal-up">
         <ContactSection />
       </SnapSection>
 
-      <div className="snap-start">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
