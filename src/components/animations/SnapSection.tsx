@@ -1,13 +1,15 @@
-import { ReactNode, useRef, useCallback, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { ReactNode, useRef, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+type EntryEffect = 'flip-up' | 'flip-left' | 'flip-right' | 'zoom-rotate' | 'slam-down' | 'none';
 
 interface SnapSectionProps {
   children: ReactNode;
-  effect?: 'flip-up' | 'flip-left' | 'flip-right' | 'zoom-rotate' | 'slide-up' | 'none';
+  effect?: EntryEffect;
   className?: string;
 }
 
-// --- Web Audio metallic impact sound ---
+// --- Web Audio metallic impact ---
 let audioCtx: AudioContext | null = null;
 
 const playMetallicClang = () => {
@@ -16,52 +18,51 @@ const playMetallicClang = () => {
     const ctx = audioCtx;
     const now = ctx.currentTime;
 
-    // Main metallic tone - short resonant ping
+    // Resonant metal ping
     const osc1 = ctx.createOscillator();
     const gain1 = ctx.createGain();
     osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(1800, now);
-    osc1.frequency.exponentialRampToValueAtTime(400, now + 0.15);
-    gain1.gain.setValueAtTime(0.08, now);
-    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+    osc1.frequency.setValueAtTime(2200, now);
+    osc1.frequency.exponentialRampToValueAtTime(350, now + 0.2);
+    gain1.gain.setValueAtTime(0.1, now);
+    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
     osc1.connect(gain1).connect(ctx.destination);
     osc1.start(now);
-    osc1.stop(now + 0.25);
+    osc1.stop(now + 0.3);
 
-    // High metallic overtone
+    // High overtone
     const osc2 = ctx.createOscillator();
     const gain2 = ctx.createGain();
     osc2.type = 'square';
-    osc2.frequency.setValueAtTime(3200, now);
-    osc2.frequency.exponentialRampToValueAtTime(800, now + 0.08);
-    gain2.gain.setValueAtTime(0.03, now);
-    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+    osc2.frequency.setValueAtTime(4000, now);
+    osc2.frequency.exponentialRampToValueAtTime(600, now + 0.06);
+    gain2.gain.setValueAtTime(0.04, now);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
     osc2.connect(gain2).connect(ctx.destination);
     osc2.start(now);
-    osc2.stop(now + 0.12);
+    osc2.stop(now + 0.1);
 
-    // Impact noise burst (the "clang" texture)
-    const bufferSize = ctx.sampleRate * 0.08;
+    // Impact noise
+    const bufferSize = ctx.sampleRate * 0.06;
     const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = noiseBuffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) {
-      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.15));
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.1));
     }
     const noise = ctx.createBufferSource();
     noise.buffer = noiseBuffer;
     const noiseGain = ctx.createGain();
-    noiseGain.gain.setValueAtTime(0.06, now);
-    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-    // Bandpass to make it metallic
+    noiseGain.gain.setValueAtTime(0.07, now);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
     const filter = ctx.createBiquadFilter();
     filter.type = 'bandpass';
-    filter.frequency.value = 2500;
-    filter.Q.value = 5;
+    filter.frequency.value = 3000;
+    filter.Q.value = 8;
     noise.connect(filter).connect(noiseGain).connect(ctx.destination);
     noise.start(now);
-    noise.stop(now + 0.08);
+    noise.stop(now + 0.06);
   } catch {
-    // Audio not available, silently skip
+    // silently skip
   }
 };
 
@@ -70,8 +71,9 @@ const triggerScreenShake = () => {
   const el = document.documentElement;
   el.style.transition = 'none';
   const frames = [
-    { x: 3, y: 2 }, { x: -4, y: -1 }, { x: 2, y: -3 },
-    { x: -2, y: 3 }, { x: 3, y: -1 }, { x: -1, y: 1 }, { x: 0, y: 0 },
+    { x: 5, y: 3 }, { x: -6, y: -2 }, { x: 4, y: -4 },
+    { x: -3, y: 5 }, { x: 5, y: -2 }, { x: -2, y: 2 },
+    { x: 1, y: -1 }, { x: 0, y: 0 },
   ];
   let i = 0;
   const shake = () => {
@@ -87,123 +89,215 @@ const triggerScreenShake = () => {
   requestAnimationFrame(shake);
 };
 
+// Animation variants per effect type
+const getVariants = (effect: EntryEffect) => {
+  switch (effect) {
+    case 'flip-up':
+      return {
+        hidden: {
+          rotateX: 90,
+          y: 200,
+          scale: 0.7,
+          opacity: 0,
+          filter: 'brightness(2) blur(4px)',
+        },
+        visible: {
+          rotateX: 0,
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          filter: 'brightness(1) blur(0px)',
+          transition: {
+            type: 'spring',
+            stiffness: 60,
+            damping: 15,
+            mass: 1.2,
+            duration: 1,
+          },
+        },
+      };
+    case 'flip-left':
+      return {
+        hidden: {
+          rotateY: -80,
+          x: -300,
+          scale: 0.65,
+          opacity: 0,
+          filter: 'brightness(1.8) blur(3px)',
+        },
+        visible: {
+          rotateY: 0,
+          x: 0,
+          scale: 1,
+          opacity: 1,
+          filter: 'brightness(1) blur(0px)',
+          transition: {
+            type: 'spring',
+            stiffness: 55,
+            damping: 14,
+            mass: 1.3,
+            duration: 1.1,
+          },
+        },
+      };
+    case 'flip-right':
+      return {
+        hidden: {
+          rotateY: 80,
+          x: 300,
+          scale: 0.65,
+          opacity: 0,
+          filter: 'brightness(1.8) blur(3px)',
+        },
+        visible: {
+          rotateY: 0,
+          x: 0,
+          scale: 1,
+          opacity: 1,
+          filter: 'brightness(1) blur(0px)',
+          transition: {
+            type: 'spring',
+            stiffness: 55,
+            damping: 14,
+            mass: 1.3,
+            duration: 1.1,
+          },
+        },
+      };
+    case 'zoom-rotate':
+      return {
+        hidden: {
+          rotateX: 50,
+          rotateY: 30,
+          scale: 0.3,
+          opacity: 0,
+          filter: 'brightness(2.5) blur(6px)',
+        },
+        visible: {
+          rotateX: 0,
+          rotateY: 0,
+          scale: 1,
+          opacity: 1,
+          filter: 'brightness(1) blur(0px)',
+          transition: {
+            type: 'spring',
+            stiffness: 50,
+            damping: 12,
+            mass: 1.5,
+            duration: 1.2,
+          },
+        },
+      };
+    case 'slam-down':
+      return {
+        hidden: {
+          rotateX: -60,
+          y: -400,
+          scale: 1.3,
+          opacity: 0,
+          filter: 'brightness(2) blur(2px)',
+        },
+        visible: {
+          rotateX: 0,
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          filter: 'brightness(1) blur(0px)',
+          transition: {
+            type: 'spring',
+            stiffness: 80,
+            damping: 12,
+            mass: 1.8,
+            duration: 0.9,
+          },
+        },
+      };
+    default:
+      return {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0.5 } },
+      };
+  }
+};
+
 const SnapSection = ({ children, effect = 'flip-up', className = '' }: SnapSectionProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const hasTriggeredRef = useRef(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const hasPlayedSound = useRef(false);
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'start start'],
-  });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-  // Fire shake + sound when section locks into place
-  useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    if (v > 0.88 && !hasTriggeredRef.current) {
-      hasTriggeredRef.current = true;
-      playMetallicClang();
-      triggerScreenShake();
-    }
-    // Reset when scrolled away
-    if (v < 0.5) {
-      hasTriggeredRef.current = false;
-    }
-  });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+          setIsVisible(true);
+          if (!hasPlayedSound.current && effect !== 'none') {
+            hasPlayedSound.current = true;
+            // Slight delay so the animation is visible before impact
+            setTimeout(() => {
+              playMetallicClang();
+              triggerScreenShake();
+            }, 400);
+          }
+        } else if (!entry.isIntersecting) {
+          setIsVisible(false);
+          hasPlayedSound.current = false;
+        }
+      },
+      { threshold: [0.3, 0.5] }
+    );
 
-  // CRANKED UP rotation angles
-  const getTransforms = () => {
-    switch (effect) {
-      case 'flip-up':
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [75, 25, 3, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 1], [0, 0]),
-          y: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [350, 80, 10, 0]),
-          scale: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [0.6, 0.85, 0.98, 1]),
-          opacity: useTransform(scrollYProgress, [0, 0.2, 0.5], [0, 0.5, 1]),
-        };
-      case 'flip-left':
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 0.5, 1], [10, 3, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [-60, -18, -2, 0]),
-          y: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [200, 50, 8, 0]),
-          scale: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [0.7, 0.88, 0.98, 1]),
-          opacity: useTransform(scrollYProgress, [0, 0.2, 0.5], [0, 0.5, 1]),
-        };
-      case 'flip-right':
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 0.5, 1], [10, 3, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [60, 18, 2, 0]),
-          y: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [200, 50, 8, 0]),
-          scale: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [0.7, 0.88, 0.98, 1]),
-          opacity: useTransform(scrollYProgress, [0, 0.2, 0.5], [0, 0.5, 1]),
-        };
-      case 'zoom-rotate':
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 0.4, 0.85, 1], [40, 12, 2, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 0.4, 0.85, 1], [30, 8, 1, 0]),
-          y: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [250, 60, 8, 0]),
-          scale: useTransform(scrollYProgress, [0, 0.4, 0.85, 1], [0.4, 0.8, 0.97, 1]),
-          opacity: useTransform(scrollYProgress, [0, 0.2, 0.4], [0, 0.4, 1]),
-        };
-      case 'slide-up':
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 0.85, 1], [15, 2, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 1], [0, 0]),
-          y: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [400, 100, 15, 0]),
-          scale: useTransform(scrollYProgress, [0, 0.5, 0.85, 1], [0.85, 0.93, 0.99, 1]),
-          opacity: useTransform(scrollYProgress, [0, 0.2, 0.5], [0, 0.6, 1]),
-        };
-      case 'none':
-      default:
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 1], [0, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 1], [0, 0]),
-          y: useTransform(scrollYProgress, [0, 1], [0, 0]),
-          scale: useTransform(scrollYProgress, [0, 1], [1, 1]),
-          opacity: useTransform(scrollYProgress, [0, 1], [1, 1]),
-        };
-    }
-  };
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [effect]);
 
-  const { rotateX, rotateY, y, scale, opacity } = getTransforms();
-
-  // Gold edge glow that flashes when section "lands"
-  const glowOpacity = useTransform(scrollYProgress, [0.75, 0.88, 0.95, 1], [0, 0.9, 1, 0.2]);
+  const variants = getVariants(effect);
 
   return (
     <div
       ref={ref}
-      className={`relative ${className}`}
+      className={`relative snap-start min-h-screen overflow-hidden ${className}`}
       style={{ perspective: 1200 }}
     >
       <motion.div
+        initial="hidden"
+        animate={isVisible ? 'visible' : 'hidden'}
+        variants={variants}
         style={{
-          rotateX,
-          rotateY,
-          y,
-          scale,
-          opacity,
-          transformOrigin: 'center bottom',
+          transformOrigin: 'center center',
           transformStyle: 'preserve-3d',
-          willChange: 'transform, opacity',
+          willChange: 'transform, opacity, filter',
+          minHeight: '100vh',
         }}
       >
         {children}
 
-        {/* Gold weld-flash along top edge when section locks in */}
+        {/* Gold weld-flash along top edge on entry */}
         <motion.div
           className="absolute inset-x-0 top-0 h-[3px] pointer-events-none z-30"
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={isVisible ? {
+            opacity: [0, 1, 1, 0.3],
+            scaleX: [0, 0.3, 1, 1],
+          } : { opacity: 0, scaleX: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           style={{
-            opacity: glowOpacity,
             background: 'linear-gradient(90deg, transparent 2%, hsl(42 80% 55%), hsl(48 100% 85%), hsl(42 80% 55%), transparent 98%)',
-            boxShadow: '0 0 50px 6px hsl(42 80% 55% / 0.6), 0 0 100px 12px hsl(42 80% 55% / 0.3), 0 0 150px 20px hsl(35 70% 45% / 0.15)',
+            boxShadow: '0 0 60px 8px hsl(42 80% 55% / 0.7), 0 0 120px 16px hsl(42 80% 55% / 0.35), 0 0 180px 24px hsl(35 70% 45% / 0.15)',
+            transformOrigin: 'left center',
           }}
         />
-        {/* Gold ambient wash from the weld */}
+
+        {/* Gold ambient wash */}
         <motion.div
-          className="absolute inset-x-0 top-0 h-48 pointer-events-none z-20"
+          className="absolute inset-x-0 top-0 h-64 pointer-events-none z-20"
+          initial={{ opacity: 0 }}
+          animate={isVisible ? { opacity: [0, 0.5, 0.15] } : { opacity: 0 }}
+          transition={{ duration: 1.2, delay: 0.3 }}
           style={{
-            opacity: useTransform(glowOpacity, v => v * 0.4),
-            background: 'linear-gradient(180deg, hsl(42 80% 55% / 0.15), transparent)',
+            background: 'linear-gradient(180deg, hsl(42 80% 55% / 0.2), transparent)',
           }}
         />
       </motion.div>
