@@ -34,7 +34,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background snap-y snap-mandatory overflow-y-auto h-screen">
       {/* Gold scroll progress bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[2px] z-[100] origin-left"
@@ -45,9 +45,12 @@ const Index = () => {
       />
 
       <Navbar />
-      <HeroSection />
       
-      <SnapSection effect="flip-up">
+      <div className="snap-start min-h-screen">
+        <HeroSection />
+      </div>
+      
+      <SnapSection effect="slam-down">
         <CollectionsSection />
       </SnapSection>
       
@@ -57,7 +60,7 @@ const Index = () => {
       
       {isAuthenticated && (
         <SnapSection effect="flip-right">
-          <section className="section-padding bg-card/20">
+          <section className="section-padding bg-card/20 min-h-screen flex items-center">
             <div className="container text-center">
               <ScrollReveal animation="fadeUp">
                 <span className="mono text-xs tracking-[0.3em] text-primary/50 mb-4 block">// QUICK ACTIONS</span>
@@ -70,7 +73,7 @@ const Index = () => {
       )}
       
       <SnapSection effect="zoom-rotate">
-        <section className="section-padding bg-background relative aurora-bg">
+        <section className="section-padding bg-background relative aurora-bg min-h-screen flex items-center">
           <div className="container relative z-10">
             <ScrollReveal animation="fadeUp">
               <div className="text-center mb-8">
@@ -90,9 +93,9 @@ const Index = () => {
         <ContactSection />
       </SnapSection>
 
-      <SnapSection effect="slide-up">
+      <div className="snap-start">
         <Footer />
-      </SnapSection>
+      </div>
     </div>
   );
 };
