@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
@@ -13,8 +13,11 @@ import { products } from "../data/enhancedProducts";
 import { useAuth } from "../contexts/AuthContext";
 import { ScrollReveal } from "../components/animations/ScrollReveal";
 import SnapSection from "../components/animations/SnapSection";
+import CinematicLoader from "../components/animations/CinematicLoader";
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const handleLoadComplete = useCallback(() => setIsLoading(false), []);
   const { isAuthenticated } = useAuth();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
