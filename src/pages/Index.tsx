@@ -50,16 +50,16 @@ const Index = () => {
         <HeroSection />
       </div>
       
-      <SnapSection effect="slam-down">
+      <SnapSection effect="fade-rise">
         <CollectionsSection />
       </SnapSection>
       
-      <SnapSection effect="flip-left">
+      <SnapSection effect="slide-left">
         <ProductsSection />
       </SnapSection>
       
       {isAuthenticated && (
-        <SnapSection effect="flip-right">
+        <SnapSection effect="scale-up">
           <section className="section-padding bg-card/20 min-h-screen flex items-center">
             <div className="container text-center">
               <ScrollReveal animation="fadeUp">
@@ -72,7 +72,7 @@ const Index = () => {
         </SnapSection>
       )}
       
-      <SnapSection effect="zoom-rotate">
+      <SnapSection effect="curtain">
         <section className="section-padding bg-background relative aurora-bg min-h-screen flex items-center">
           <div className="container relative z-10">
             <ScrollReveal animation="fadeUp">
@@ -85,11 +85,11 @@ const Index = () => {
         </section>
       </SnapSection>
       
-      <SnapSection effect="flip-up">
+      <SnapSection effect="fade-rise">
         <TestimonialsSection />
       </SnapSection>
       
-      <SnapSection effect="flip-right">
+      <SnapSection effect="slide-right">
         <ContactSection />
       </SnapSection>
 
