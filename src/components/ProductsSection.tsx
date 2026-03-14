@@ -7,7 +7,7 @@ import { AdvancedFilters } from "@/components/filters/AdvancedFilters";
 import { useProductSearch } from "@/hooks/useProductSearch";
 import { ScrollReveal, StaggerChildren, StaggerItem } from "@/components/animations/ScrollReveal";
 
-const ProductScene3D = lazy(() => import('@/components/3d/ProductScene').then(m => ({ default: m.ProductScene3D })));
+const SectionScene3D = lazy(() => import('@/components/3d/SectionScene').then(m => ({ default: m.SectionScene3D })));
 
 const ProductsSection = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -36,31 +36,28 @@ const ProductsSection = () => {
   const displayProducts = filteredProducts;
 
   return (
-    <section id="products" className="section-padding bg-card relative grid-overlay">
+    <section id="products" className="section-padding bg-card/30 relative mesh-bg">
       <div className="container relative z-10">
         {/* 3D separator */}
         <Suspense fallback={null}>
-          <div className="mb-8">
-            <ProductScene3D variant="frame" />
-          </div>
+          <SectionScene3D variant="products" />
         </Suspense>
 
         <ScrollReveal animation="fadeUp">
-          <div className="mb-16">
-            <span className="mono text-xs tracking-[0.3em] text-primary mb-4 block">// CATALOG</span>
-            <h2 className="text-5xl md:text-7xl font-display font-black mb-4">
-              PRODUCT<br />
-              <span className="text-gradient">ARSENAL</span>
+          <div className="mb-16 text-center">
+            <span className="mono text-xs tracking-[0.3em] text-accent/60 mb-4 block">our catalog</span>
+            <h2 className="text-5xl md:text-7xl font-display font-bold mb-4">
+              Product <span className="text-gradient">Arsenal</span>
             </h2>
-            <p className="text-muted-foreground max-w-lg mb-8">
-              Industrial precision. Every piece forged with intent.
+            <p className="text-muted-foreground max-w-lg mx-auto text-lg mb-10">
+              Every piece crafted with intention and precision.
             </p>
 
-            <div className="space-y-6">
+            <div className="max-w-2xl mx-auto space-y-6">
               <SearchBar
                 onSearch={setSearchQuery}
                 placeholder="Search by name, category, materials..."
-                className="max-w-md"
+                className="max-w-md mx-auto"
               />
 
               <AdvancedFilters
@@ -70,17 +67,17 @@ const ProductsSection = () => {
                 priceRange={filterOptions.priceRange}
               />
 
-              <div className="flex items-center justify-between border-t border-border pt-4">
+              <div className="flex items-center justify-center">
                 <p className="mono text-sm text-muted-foreground">
-                  [{resultCount}/{totalCount}] RESULTS
-                  {searchQuery && <span> → "{searchQuery}"</span>}
+                  {resultCount} of {totalCount} products
+                  {searchQuery && <span className="text-primary"> · "{searchQuery}"</span>}
                 </p>
               </div>
             </div>
           </div>
         </ScrollReveal>
 
-        <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1" staggerDelay={0.1}>
+        <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.1}>
           {displayProducts.length > 0 ? (
             displayProducts.map((product) => (
               <StaggerItem key={product.id}>
@@ -90,10 +87,10 @@ const ProductsSection = () => {
           ) : (
             <div className="col-span-full text-center py-20">
               <Search className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-display font-bold mb-2">NO RESULTS</h3>
-              <p className="text-muted-foreground mono text-sm">
+              <h3 className="text-xl font-display font-bold mb-2">No results found</h3>
+              <p className="text-muted-foreground text-sm">
                 {searchQuery
-                  ? `Adjust search "${searchQuery}" or filters.`
+                  ? `Try adjusting "${searchQuery}" or your filters.`
                   : "Adjust filters to find products."
                 }
               </p>
