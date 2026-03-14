@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/products/ProductCard";
 import { SearchBar } from "@/components/search/SearchBar";
 import { AdvancedFilters } from "@/components/filters/AdvancedFilters";
 import { useProductSearch } from "@/hooks/useProductSearch";
-import { ScrollReveal, StaggerChildren, StaggerItem } from "@/components/animations/ScrollReveal";
+import { ScrollReveal, StaggerChildren, StaggerItem, SplitText } from "@/components/animations/ScrollReveal";
 
 const SectionScene3D = lazy(() => import('@/components/3d/SectionScene').then(m => ({ default: m.SectionScene3D })));
 
@@ -36,7 +36,7 @@ const ProductsSection = () => {
   const displayProducts = filteredProducts;
 
   return (
-    <section id="products" className="section-padding bg-card/30 relative mesh-bg">
+    <section id="products" className="section-padding bg-card/20 relative mesh-bg">
       <div className="container relative z-10">
         {/* 3D separator */}
         <Suspense fallback={null}>
@@ -45,9 +45,9 @@ const ProductsSection = () => {
 
         <ScrollReveal animation="fadeUp">
           <div className="mb-16 text-center">
-            <span className="mono text-xs tracking-[0.3em] text-accent/60 mb-4 block">our catalog</span>
+            <span className="mono text-xs tracking-[0.3em] text-primary/50 mb-4 block">// CATALOG</span>
             <h2 className="text-5xl md:text-7xl font-display font-bold mb-4">
-              Product <span className="text-gradient">Arsenal</span>
+              Product <SplitText text="Arsenal" className="text-gradient" animation="up" staggerDelay={0.05} />
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto text-lg mb-10">
               Every piece crafted with intention and precision.
