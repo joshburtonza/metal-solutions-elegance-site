@@ -5,39 +5,39 @@ type AnimationType = 'fadeUp' | 'fadeLeft' | 'fadeRight' | 'scaleUp' | 'rotateIn
 
 const variants: Record<AnimationType, Variants> = {
   fadeUp: {
-    hidden: { opacity: 0, y: 80, filter: 'blur(12px)' },
-    visible: { opacity: 1, y: 0, filter: 'blur(0px)' }
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 }
   },
   fadeLeft: {
-    hidden: { opacity: 0, x: -80, filter: 'blur(8px)' },
-    visible: { opacity: 1, x: 0, filter: 'blur(0px)' }
+    hidden: { opacity: 0, x: -60 },
+    visible: { opacity: 1, x: 0 }
   },
   fadeRight: {
-    hidden: { opacity: 0, x: 80, filter: 'blur(8px)' },
-    visible: { opacity: 1, x: 0, filter: 'blur(0px)' }
+    hidden: { opacity: 0, x: 60 },
+    visible: { opacity: 1, x: 0 }
   },
   scaleUp: {
-    hidden: { opacity: 0, scale: 0.8, filter: 'blur(20px)' },
-    visible: { opacity: 1, scale: 1, filter: 'blur(0px)' }
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1 }
   },
   rotateIn: {
-    hidden: { opacity: 0, rotate: -5, scale: 0.9, filter: 'blur(8px)' },
-    visible: { opacity: 1, rotate: 0, scale: 1, filter: 'blur(0px)' }
+    hidden: { opacity: 0, rotate: -3, scale: 0.95 },
+    visible: { opacity: 1, rotate: 0, scale: 1 }
   },
   slideUp: {
-    hidden: { opacity: 0, y: 120, filter: 'blur(15px)' },
-    visible: { opacity: 1, y: 0, filter: 'blur(0px)' }
+    hidden: { opacity: 0, y: 80 },
+    visible: { opacity: 1, y: 0 }
   },
   clipReveal: {
     hidden: { opacity: 0, clipPath: 'inset(100% 0% 0% 0%)' },
     visible: { opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }
   },
   blurIn: {
-    hidden: { opacity: 0, filter: 'blur(30px)', scale: 1.1 },
-    visible: { opacity: 1, filter: 'blur(0px)', scale: 1 }
+    hidden: { opacity: 0, scale: 1.05 },
+    visible: { opacity: 1, scale: 1 }
   },
   splitReveal: {
-    hidden: { opacity: 0, y: 60, rotateX: 45 },
+    hidden: { opacity: 0, y: 40, rotateX: 20 },
     visible: { opacity: 1, y: 0, rotateX: 0 }
   }
 };
@@ -301,8 +301,8 @@ export function StaggerItem({
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 50, filter: 'blur(10px)', scale: 0.95 },
-        visible: { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }
+        hidden: { opacity: 0, y: 40, scale: 0.97 },
+        visible: { opacity: 1, y: 0, scale: 1 }
       }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={className}
