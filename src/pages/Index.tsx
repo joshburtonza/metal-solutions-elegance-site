@@ -12,6 +12,7 @@ import { QuickReorderButton } from "../components/quick-order/QuickReorderButton
 import { products } from "../data/enhancedProducts";
 import { useAuth } from "../contexts/AuthContext";
 import { ScrollReveal } from "../components/animations/ScrollReveal";
+import WeldingTransition from "../components/animations/WeldingTransition";
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
@@ -45,20 +46,31 @@ const Index = () => {
 
       <Navbar />
       <HeroSection />
+      
+      <WeldingTransition direction="left-to-right" intensity={1.2} />
+      
       <CollectionsSection />
+      
+      <WeldingTransition direction="right-to-left" intensity={1} />
+      
       <ProductsSection />
       
       {isAuthenticated && (
-        <section className="section-padding bg-card/20">
-          <div className="container text-center">
-            <ScrollReveal animation="fadeUp">
-              <span className="mono text-xs tracking-[0.3em] text-primary/50 mb-4 block">// QUICK ACTIONS</span>
-              <h2 className="text-3xl font-display font-bold mb-6">Reorder</h2>
-              <QuickReorderButton />
-            </ScrollReveal>
-          </div>
-        </section>
+        <>
+          <WeldingTransition direction="center-out" intensity={0.8} />
+          <section className="section-padding bg-card/20">
+            <div className="container text-center">
+              <ScrollReveal animation="fadeUp">
+                <span className="mono text-xs tracking-[0.3em] text-primary/50 mb-4 block">// QUICK ACTIONS</span>
+                <h2 className="text-3xl font-display font-bold mb-6">Reorder</h2>
+                <QuickReorderButton />
+              </ScrollReveal>
+            </div>
+          </section>
+        </>
       )}
+      
+      <WeldingTransition direction="left-to-right" intensity={1.1} />
       
       <section className="section-padding bg-background relative aurora-bg">
         <div className="container relative z-10">
@@ -71,7 +83,12 @@ const Index = () => {
         </div>
       </section>
       
+      <WeldingTransition direction="right-to-left" intensity={1} />
+      
       <TestimonialsSection />
+      
+      <WeldingTransition direction="center-out" intensity={1.3} />
+      
       <ContactSection />
       <Footer />
     </div>
