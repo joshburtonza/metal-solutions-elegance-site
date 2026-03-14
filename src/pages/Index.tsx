@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
@@ -11,53 +10,50 @@ import { ProductRecommendations } from "../components/recommendations/ProductRec
 import { QuickReorderButton } from "../components/quick-order/QuickReorderButton";
 import { products } from "../data/enhancedProducts";
 import { useAuth } from "../contexts/AuthContext";
+import { ScrollReveal } from "../components/animations/ScrollReveal";
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
 
-  // Smooth scroll effect for anchor links
   useEffect(() => {
     const handleHashChange = () => {
       const { hash } = window.location;
       if (hash) {
-        const id = hash.substring(1);
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+        const element = document.getElementById(hash.substring(1));
+        if (element) element.scrollIntoView({ behavior: "smooth" });
       }
     };
 
-    // Handle initial hash if present
-    if (window.location.hash) {
-      handleHashChange();
-    }
-
+    if (window.location.hash) handleHashChange();
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
       <CollectionsSection />
       <ProductsSection />
       
-      {/* Quick Reorder Section for authenticated users */}
       {isAuthenticated && (
-        <section className="section-padding bg-charcoal">
+        <section className="section-padding bg-card">
           <div className="container text-center">
-            <h2 className="text-2xl font-bold mb-4 text-white">Quick Actions</h2>
-            <QuickReorderButton />
+            <ScrollReveal animation="fadeUp">
+              <span className="mono text-xs tracking-[0.3em] text-primary mb-4 block">// QUICK ACTIONS</span>
+              <h2 className="text-3xl font-display font-black mb-6">REORDER</h2>
+              <QuickReorderButton />
+            </ScrollReveal>
           </div>
         </section>
       )}
       
-      {/* Product Recommendations */}
-      <section className="section-padding bg-charcoal-dark">
-        <div className="container">
-          <ProductRecommendations products={products} maxItems={4} />
+      <section className="section-padding bg-background grid-overlay relative">
+        <div className="container relative z-10">
+          <ScrollReveal animation="fadeUp">
+            <span className="mono text-xs tracking-[0.3em] text-primary mb-4 block">// FOR YOU</span>
+            <ProductRecommendations products={products} maxItems={4} />
+          </ScrollReveal>
         </div>
       </section>
       
