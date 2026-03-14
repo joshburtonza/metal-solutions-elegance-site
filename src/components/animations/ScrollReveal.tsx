@@ -301,8 +301,8 @@ export function StaggerItem({
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 50, filter: 'blur(10px)', scale: 0.95 },
-        visible: { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }
+        hidden: { opacity: 0, y: 40, scale: 0.97 },
+        visible: { opacity: 1, y: 0, scale: 1 }
       }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={className}
