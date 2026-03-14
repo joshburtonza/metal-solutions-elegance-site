@@ -23,22 +23,13 @@ const SnapSection = memo(({ children, effect = 'reveal-up', className = '' }: Sn
     restDelta: 0.0001,
   });
 
-  // Opacity: 0→1 in first 30%, hold, gentle fade at exit
-  const opacity = useTransform(smoothProgress, [0, 0.15, 0.75, 1], [0, 1, 1, 0.7]);
+  // Gentle parallax Y — content drifts up as you scroll into view
+  const yUp = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [60, 0, 0, -20]);
+  const yFade = useTransform(smoothProgress, [0, 0.25], [30, 0]);
 
-  // Y translations
-  const yUp = useTransform(smoothProgress, [0, 0.2, 0.7, 1], [80, 0, 0, -30]);
-  const yFade = useTransform(smoothProgress, [0, 0.2], [40, 0]);
-
-  // Scale
-  const scale = useTransform(smoothProgress, [0, 0.2, 0.75, 1], [0.94, 1, 1, 0.98]);
-  const scaleSubtle = useTransform(smoothProgress, [0, 0.2], [0.97, 1]);
-
-  // Clip-path reveals
-  const clipMask = useTransform(smoothProgress, [0, 0.25], [100, 0]);
-  const clipMaskPath = useTransform(clipMask, (v) => `inset(${v}% 0% 0% 0%)`);
-  const curtainInset = useTransform(smoothProgress, [0, 0.25], [50, 0]);
-  const curtainPath = useTransform(curtainInset, (v) => `inset(0% ${v}% 0% ${v}%)`);
+  // Subtle scale breathe
+  const scale = useTransform(smoothProgress, [0, 0.25, 0.75, 1], [0.96, 1, 1, 0.99]);
+  const scaleSubtle = useTransform(smoothProgress, [0, 0.2], [0.98, 1]);
 
   // Gold line
   const lineOpacity = useTransform(smoothProgress, [0.1, 0.25, 0.6], [0, 0.25, 0]);
@@ -47,17 +38,17 @@ const SnapSection = memo(({ children, effect = 'reveal-up', className = '' }: Sn
   const getMotionStyle = (): MotionStyle => {
     switch (effect) {
       case 'reveal-up':
-        return { y: yUp, opacity, scale: scaleSubtle };
+        return { y: yUp, scale: scaleSubtle };
       case 'reveal-scale':
-        return { scale, opacity };
+        return { scale };
       case 'reveal-mask':
-        return { clipPath: clipMaskPath };
+        return { y: yFade };
       case 'reveal-fade':
-        return { y: yFade, opacity };
+        return { y: yFade };
       case 'curtain':
-        return { opacity, clipPath: curtainPath };
+        return { scale: scaleSubtle, y: yFade };
       default:
-        return { opacity };
+        return {};
     }
   };
 
