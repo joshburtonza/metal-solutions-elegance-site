@@ -12,7 +12,7 @@ import { QuickReorderButton } from "../components/quick-order/QuickReorderButton
 import { products } from "../data/enhancedProducts";
 import { useAuth } from "../contexts/AuthContext";
 import { ScrollReveal } from "../components/animations/ScrollReveal";
-import MetalPlateReveal from "../components/animations/MetalPlateReveal";
+import SnapSection from "../components/animations/SnapSection";
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
@@ -47,16 +47,16 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       
-      <MetalPlateReveal origin="top" angle={10}>
+      <SnapSection effect="flip-up">
         <CollectionsSection />
-      </MetalPlateReveal>
+      </SnapSection>
       
-      <MetalPlateReveal origin="left" angle={6}>
+      <SnapSection effect="flip-left">
         <ProductsSection />
-      </MetalPlateReveal>
+      </SnapSection>
       
       {isAuthenticated && (
-        <MetalPlateReveal origin="right" angle={8}>
+        <SnapSection effect="flip-right">
           <section className="section-padding bg-card/20">
             <div className="container text-center">
               <ScrollReveal animation="fadeUp">
@@ -66,10 +66,10 @@ const Index = () => {
               </ScrollReveal>
             </div>
           </section>
-        </MetalPlateReveal>
+        </SnapSection>
       )}
       
-      <MetalPlateReveal origin="bottom" angle={7}>
+      <SnapSection effect="zoom-rotate">
         <section className="section-padding bg-background relative aurora-bg">
           <div className="container relative z-10">
             <ScrollReveal animation="fadeUp">
@@ -80,17 +80,19 @@ const Index = () => {
             </ScrollReveal>
           </div>
         </section>
-      </MetalPlateReveal>
+      </SnapSection>
       
-      <MetalPlateReveal origin="top" angle={9}>
+      <SnapSection effect="flip-up">
         <TestimonialsSection />
-      </MetalPlateReveal>
+      </SnapSection>
       
-      <MetalPlateReveal origin="left" angle={6}>
+      <SnapSection effect="flip-right">
         <ContactSection />
-      </MetalPlateReveal>
+      </SnapSection>
 
-      <Footer />
+      <SnapSection effect="slide-up">
+        <Footer />
+      </SnapSection>
     </div>
   );
 };
