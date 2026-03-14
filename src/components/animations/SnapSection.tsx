@@ -13,7 +13,7 @@ const getVariants = (effect: EntryEffect) => {
   const elegant = {
     type: 'tween' as const,
     duration: 1.1,
-    ease: [0.25, 0.1, 0.25, 1] as number[],
+    ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
   };
 
   switch (effect) {
